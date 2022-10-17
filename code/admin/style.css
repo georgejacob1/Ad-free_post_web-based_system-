@@ -1,7 +1,7 @@
 /* Googlefont Poppins CDN Link */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
-  margin: 0;
+  margin: 100;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
@@ -281,6 +281,7 @@ nav .profile-details i {
   display: flex;
   justify-content: space-between;
   /* padding: 0 20px; */
+  max-width: 100%;
 }
 
 /* left box */
