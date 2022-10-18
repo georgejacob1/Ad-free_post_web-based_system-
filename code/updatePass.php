@@ -62,7 +62,7 @@ if(isset($_POST['submit_reset'])){
     <div class="login-form-container active">
         
             <form action="" method="post" onsubmit="return add()">
-                <h3>Forgo</h3>
+                <h3>Update Password</h3>
                 <a href="index.php"><center><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a></center>  
                 <span>password</span>
                 <input type="password" name="password" class="box" placeholder="Enter your new password here" required id="pass">
@@ -74,8 +74,7 @@ if(isset($_POST['submit_reset'])){
                     <label for="remember-me"> remember me</label>
                 </div> -->
                 <input type="submit" value="submit_reset" class="btn" name="submit_reset">
-                <p>forget password ? <a href="forgot_pass.php">click here</a></p>
-                <p>don't have an account ? <a href="reg.php">create one</a></p>
+                
             </form>
         
         </div>

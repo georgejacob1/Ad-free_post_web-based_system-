@@ -31,100 +31,20 @@ if(isset($_POST['submit_otp'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+        <!-- font awesome cdn link  -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="sty.css">
     <title>Login</title>
-    <style>
-        body{
-            background-color: #DEDEDE;
-        }
-     .navbar {
-        overflow: hidden;
-        background-color: #333;
-        position: absolute;
-        width: 100%;
-        left: 0px;
-        top: 0px;
-        }
-
-
-        .navbar a {
-        float: right;
-        color: white;
-        padding-top: 30px;
-        margin-right: 50px;
-        text-decoration: none;
-        font-family: 'Itim';
-        }
-        .navbar a.left {
-            float: left;
-            padding: 0%;
-            padding-left: 25px;
-        }
-        .navbar a:hover {
-        color: rgb(185, 185, 185);
-        }
-        .ticket{
-            position: absolute;
-            width: 561px;
-            height: 497px;
-            left: 807px;
-            top: 163px;
-        }
-        table{
-            position: absolute;
-            left: 550px;
-            top: 200px;
-        }
-        table label{
-            font-family: 'Poppins';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 23px;
-            line-height: 48px;
-        }
-        input:not([type=submit]){
-            box-sizing: border-box;
-            background: #D9D9D9;
-            border: 2px solid #757070;
-            border-radius: 9px;
-            padding: 10px;
-            width: 300px;
-            height: 45px;
-        }
-        input[type="submit"] {
-            position: absolute;
-            background: #1E1E1E;
-            top: 120px;
-            height: 40px;
-            width: 90px;
-            border-radius: 20px;
-            color: white;
-            border: none;
-            font-family: 'Poppins';
-            /* font-weight: bold; */
-            
-        }
-        input[type="submit"]:hover{
-            background-color: #000000;
-            cursor: pointer;
-        }
-        ::placeholder{
-            font-family: 'Poppins';
-            padding-left: 8px;
-            font-weight: 700;
-        }
-        </style>
 </head>
 <body>
-    <div class="navbar">
-        <a class="left" href="index.php"><img src="imgs/main-logo.png" alt="BookMyTickets" width="200" height="80"></a>
-    </div>
+<div class="login-form-container active">
     <form action="" method="POST">
-    <table>
-        <tr><td><label for="email">OTP Verification</label></td></tr>
-        <tr><td><input type="text" name="otp-enter" placeholder="Enter your OTP here" maxlength="6" required></td></tr>
-        <tr><td><input type="submit" name="submit_otp" value="Verify OTP"></td></tr>
-    </table>
+        <h3>OTP Verification</h3>
+        <a href="index.php"><center><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a></center> 
+        <input type="text" name="otp-enter" class="box" placeholder="Enter your OTP here" maxlength="6" required>
+       <input type="submit" class="btn" name="submit_otp" value="Verify OTP">
     </form>
+</div>
 </body>
 </html>

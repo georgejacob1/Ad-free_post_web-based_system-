@@ -21,6 +21,14 @@ if(isset($_POST['submit_login'])){
             $_SESSION['type_name'] = $row['type_name'];
             header("location: admin/index.php");
         }
+        else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "admin" && $row['user_status'] == "deactive"){
+            echo '<script> alert("Your account has been blocked.");</script>';
+	        echo'<script>window.location.href="login.php";</script>';
+        }
+        else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user" && $row['user_status'] == "deactive"){
+            echo '<script> alert ("Your account has been blocked.");</script>';
+	        echo'<script>window.location.href="login.php";</script>';
+        }
     }
     else{
         echo '<script> alert ("Invalid credentials");</script>';
@@ -29,3 +37,6 @@ if(isset($_POST['submit_login'])){
 
 }
 ?>
+
+
+
