@@ -79,6 +79,7 @@ if(isset($_POST['change-pass'])){
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <!-- Boxicons CDN Link -->
+
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,12 +97,12 @@ if(isset($_POST['change-pass'])){
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="category.php">
             <i class='bx bx-box' ></i>
-            <span class="links_name">Product</span>
+            <span class="links_name">category</span>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="#">
             <i class='bx bx-list-ul' ></i>
             <span class="links_name">Order list</span>
@@ -142,7 +143,7 @@ if(isset($_POST['change-pass'])){
             <i class='bx bx-heart' ></i>
             <span class="links_name">Favrorites</span>
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="admin_changepass.php" class="active">
             <i class='bx bx-cog' ></i>
@@ -176,6 +177,27 @@ if(isset($_POST['change-pass'])){
     </nav>
 
     <div class="home-content">
+    <!-- <div class="form-floating mb-3">
+
+<form action="" method="POST" onsubmit="return validateForm()">
+<div class="form-floating">
+  <input type="password" name="current" class="form-control" id="currentPassword" placeholder="Password"required>
+  <label for="floatingPassword">currentPassword</label>
+</div>
+<br>
+<div class="form-floating">
+  <input type="password" name="current" class="form-control"name="new" id="newPassword"  placeholder="Password" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
+  <label for="floatingPassword">New Password</label>
+</div>
+<br>
+<div class="form-floating">
+  <input type="password" name="current" class="form-control" name="renewPassword" id="renewPassword" placeholder="Password" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
+  <label for="floatingPassword">Re-enter New Password</label>
+</div>
+  <span class="msg" id="msg1"></span>
+  <input type="submit" name="change-pass" class="btn" value="Change Password">
+  </form>
+</div> -->
     <div class="sales-boxes">
         <div class="recent-sales box">
         <div class="login-form-container">
