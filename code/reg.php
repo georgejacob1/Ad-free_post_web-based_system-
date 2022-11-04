@@ -87,9 +87,9 @@
                 <h3>Sign up</h3>
                 <a href="index.php "><center><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a></center>  
                 <span>Name</span>
-                <input type="text" 
-                 class="box" placeholder="Firstname" style="width: 179px" id="" pattern="[a-zA-Z]+" title="Name must be alphabets" title="Name must be alphabets">
-                <input type="text" name="lname" class="box" placeholder="Lastname" style="width: 179px;margin: -100px; margin-left: 7px;" id="" pattern="[a-zA-Z]+" title="Name must be alphabets" title="Name must be alphabets">
+                <input type="text" name="fname"
+                 class="box" placeholder="Firstname" style="width: 179px" id="" pattern="[a-zA-Z]+"  title="Name must be alphabets">
+                <input type="text" name="lname" class="box" placeholder="Lastname" style="width: 179px;margin: -100px; margin-left: 7px;" id="" pattern="[a-zA-Z]+" title="Name must be alphabets" >
                 <span>Email</span>
                 <input type="email" name="mail" class="box" placeholder="enter your email" id="ema"   required pattern="/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/" onkeyup="return add()">
                 <span class="msg" id="message"></span>

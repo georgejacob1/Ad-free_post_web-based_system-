@@ -14,6 +14,7 @@ if(isset($_POST['submit_login'])){
             $_SESSION['email'] = $row['email'];
             $_SESSION['password'] = $row['password'];
             $_SESSION['type_name'] = $row['type_name'];
+            $_SESSION['login_id'] = $row['login_id'];
             header("location: user.php");
         }
         else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "admin"){
@@ -23,8 +24,8 @@ if(isset($_POST['submit_login'])){
             header("location: admin/index.php");
         }
         else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user" && $row['user_status'] == "deactive"){
-            echo '<script> alert ("Your account has been blocked.");</script>';
-	        echo'<script>window.location.href="login.php";</script>';
+            echo "<script> alert ('Your account has been blocked.');</script>";
+	        echo '<script>window.location.href="login.php";</script>';
         }
     }
     else{
