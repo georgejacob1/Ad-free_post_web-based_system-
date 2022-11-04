@@ -1,6 +1,4 @@
-<?php
-include 'db_con.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +45,7 @@ include 'db_con.php';
     <div class="header-2">
         <nav class="navbar">
             <a href="#home">home</a>
-            <a href="#featured">Recent ads</a>
+            <a href="#featured">featured</a>
             <a href="#arrivals">arrivals</a>
             <a href="#reviews">reviews</a>
             <a href="#blogs">blogs</a>
@@ -70,7 +68,7 @@ include 'db_con.php';
 
 <!-- login form  -->
 
-<!-- <div class="login-form-container">
+<div class="login-form-container">
 
     <div id="close-login-btn" class="fas fa-times"></div>
 
@@ -90,7 +88,7 @@ include 'db_con.php';
         <p>don't have an account ? <a href="reg.php">create one</a></p>
     </form>
 
-</div> -->
+</div>
 
 <!-- home section starts  -->
 
@@ -166,39 +164,29 @@ include 'db_con.php';
 
 <section class="featured" id="featured">
 
-    <h1 class="heading"> <span>Recent ads</span> </h1>
+    <h1 class="heading"> <span>featured books</span> </h1>
 
     <div class="swiper featured-slider">
 
         <div class="swiper-wrapper">
-            <?php
-$v = "SELECT * FROM tbl_product";
-$v_check = mysqli_query($conn,$v);
-while($vrow = mysqli_fetch_array($v_check)){
-            ?>
 
             <div class="swiper-slide box">
-               
                 <div class="icons">
                     <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
-
                 <div class="image">
-                    <img src="user_profile/images/<?php echo $vrow['p_image'];?>" alt="">
+                    <img src="image/book-1.png" alt="">
                 </div>
                 <div class="content">
-                    <h3><?php echo $vrow['p_name'];?></h3>
-                    <div class="price">Rs.<?php echo $vrow['price'];?> </div>
+                    <h3>featured books</h3>
+                    <div class="price">$15.99 <span>$20.99</span></div>
                     <a href="#" class="btn">add to cart</a>
                 </div>
             </div>
-            <?php
-}
-?>
 
-            <!-- <div class="swiper-slide box">
+            <div class="swiper-slide box">
                 <div class="icons">
                     <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
@@ -340,7 +328,7 @@ while($vrow = mysqli_fetch_array($v_check)){
                     <div class="price">$15.99 <span>$20.99</span></div>
                     <a href="#" class="btn">add to cart</a>
                 </div>
-            </div> -->
+            </div>
 
         </div>
 
@@ -369,7 +357,7 @@ while($vrow = mysqli_fetch_array($v_check)){
 
 <!-- arrivals section starts  -->
 
-<!-- <section class="arrivals" id="arrivals">
+<section class="arrivals" id="arrivals">
 
     <h1 class="heading"> <span>new arrivals</span> </h1>
 
@@ -559,7 +547,7 @@ while($vrow = mysqli_fetch_array($v_check)){
 
     </div>
 
-</section> -->
+</section>
 
 <!-- arrivals section ends -->
 

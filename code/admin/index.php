@@ -29,12 +29,12 @@ include '../db_con.php';
           </a>
         </li>
         <li>
-          <a href="category.php">
+          <a href="#">
             <i class='bx bx-box' ></i>
-            <span class="links_name">category</span>
+            <span class="links_name">Product</span>
           </a>
         </li>
-        <!-- <li>
+        <li>
           <a href="#">
             <i class='bx bx-list-ul' ></i>
             <span class="links_name">Order list</span>
@@ -75,7 +75,7 @@ include '../db_con.php';
             <i class='bx bx-heart' ></i>
             <span class="links_name">Favrorites</span>
           </a>
-        </li> -->
+        </li>
         <li>
           <a href="admin_changepass.php">
             <i class='bx bx-cog' ></i>
