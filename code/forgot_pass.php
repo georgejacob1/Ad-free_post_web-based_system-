@@ -33,13 +33,13 @@ if(isset($_POST['send_otp'])){
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'your email adress';                     //SMTP username
-        $mail->Password   = 'email password';                               //SMTP password
+        $mail->Username   = 'georgejacob2023a@mca.ajce.in';                     //SMTP username
+        $mail->Password   = '8547123510';                               //SMTP password
         $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
         //Recipients
-        $mail->setFrom('your email', 'easyBuy');
+        $mail->setFrom('georgejacob2023a@mca.ajce.in', 'easyBuy');
         $mail->addAddress($email);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
