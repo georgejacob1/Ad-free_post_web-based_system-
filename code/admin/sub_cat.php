@@ -287,7 +287,7 @@ include '../db_con.php';
                         <form id="editsubcat">
                             <div class="form-group">
                                 <!-- <label for="recipient-name" class="col-form-label">Recipient:</label> -->
-                                <input type="hidden" name="sub_id" id="sub_id">
+                                <input type="hidden" name="sub_id" id="subcatid">
                                 <input type="text" name="sub" id="sub" placeholder="enter sub-category" class="form-control" required>
                             </div>
 
@@ -414,7 +414,7 @@ include '../db_con.php';
                     var res = jQuery.parseJSON(response);
 
                     if (res.status == 200) {
-                        $('#sub_id').val(res.data.sub_id);
+                        $('#subcatid').val(res.data.sub_id);
                         $('#sub').val(res.data.subcat);
                         $('#sub_cat').val(res.data.category);
                         $('#editsubcatmodal').modal('show');
@@ -462,6 +462,30 @@ include '../db_con.php';
                     }
                 });
             }
+        });
+
+
+        $(document).on('submit', '#editsubcat', function(e) {
+            // console.log("asdsd")
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            formData.append("update_subcat", true);
+
+            $.ajax({
+                url: "ajax.php",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // alert(response);
+                    $('#editsubcatmodal').modal('hide');
+                    $('#editsubcat')[0].reset();
+                    $('#myTable').load(location.href + " #myTable");
+                }
+            });
+
         });
     </script>
 

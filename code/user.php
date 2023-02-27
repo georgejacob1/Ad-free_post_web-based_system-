@@ -20,18 +20,21 @@ if (isset($_POST['submit'])) {
     $pid = $_POST['pid'];
 
 
-    // $sqll = "select * from tbl_cart where pid='$pid'";
-    // $run = mysqli_query($conn, $sqll);
-    // $s = mysqli_num_rows($run);
-    // if ($s != 0) {
-    //     echo "<script>alert('Product Already Exist')</script>";
-    // } else {
-    $ab = "INSERT INTO `tbl_cart`(`pname`, `price`,`image`, `description`, `contact`,`username`) VALUES ('$pname','$price','$img','$desc','$phone','$email')";
-    $exe = mysqli_query($conn, $ab);
-    if ($exe) {
-        echo "<script>alert('Product Added')</script>";
+    $sqll = "select * from tbl_cart where pid='$pid' and username='$email'";
+    $run = mysqli_query($conn, $sqll);
+    $s = mysqli_num_rows($run);
+    if ($s != 0) {
+        echo "<script>alert('Product Already Exist')</script>";
+        header("location:cart.php");
+    } else {
+        $ab = "INSERT INTO `tbl_cart`(`pid`,`pname`, `price`,`image`, `description`, `contact`,`username`) VALUES ('$pid','$pname','$price','$img','$desc','$phone','$email')";
+        $exe = mysqli_query($conn, $ab);
+
+        if ($exe) {
+            echo "<script>alert('Product Added')</script>";
+            header("location:user.php");
+        }
     }
-    // }
 
     // echo "<script>alert('$pname')</script>";
 }
@@ -141,9 +144,9 @@ if (isset($_POST['submit'])) {
 
         <div class="header-2">
             <nav class="navbar">
-                <a href="#home">home</a>
+                <!-- <a href="#home">home</a> -->
                 <a href="#featured">Recent ads</a>
-                <a href="#arrivals">arrivals</a>
+                <!-- <a href="#arrivals">arrivals</a> -->
                 <a href="#reviews">reviews</a>
                 <a href="#blogs">blogs</a>
             </nav>
@@ -189,7 +192,7 @@ if (isset($_POST['submit'])) {
 
     <!-- home section starts  -->
 
-    <section class="home" id="home">
+    <!-- <section class="home" id="home">
 
         <div class="row">
 
@@ -213,13 +216,13 @@ if (isset($_POST['submit'])) {
 
         </div>
 
-    </section>
+    </section> -->
 
     <!-- home section ense  -->
 
     <!-- icons section starts  -->
 
-    <section class="icons-container">
+    <!-- <section class="icons-container">
 
         <div class="icons">
             <i class="fas fa-shipping-fast"></i>
@@ -253,7 +256,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
 
-    </section>
+    </section> -->
 
     <!-- icons section ends -->
 
@@ -274,14 +277,15 @@ if (isset($_POST['submit'])) {
 
                     <div class="swiper-slide box">
 
-                        <!-- <div class="icons">
-                            <a href="#" class="fas fa-search"></a>
-                            <a href="#" class="fas fa-heart"></a>
-                            <a href="#" class="fas fa-eye"></a>
-                        </div> -->
+                        <div class="icons">
 
+                            <form action="userview.php" method="post">
+                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:25px"></button>
+                            </form>
+                        </div>
                         <div class="image">
-                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="">
+                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px">
                         </div>
                         <div class="content">
                             <h3><?php echo $vrow['p_name']; ?></h3>
@@ -306,149 +310,6 @@ if (isset($_POST['submit'])) {
                 ?>
 
 
-                <!-- <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-3.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-4.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-5.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-6.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-7.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-8.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-9.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="image/book-10.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">add to cart</a>
-                </div>
-            </div> -->
 
             </div>
 
@@ -463,7 +324,7 @@ if (isset($_POST['submit'])) {
 
     <!-- newsletter section starts -->
 
-    <section class="newsletter">
+    <!-- <section class="newsletter">
 
         <form action="">
             <h3>subscribe for latest updates</h3>
@@ -471,7 +332,7 @@ if (isset($_POST['submit'])) {
             <input type="submit" value="subscribe" class="btn">
         </form>
 
-    </section>
+    </section> -->
 
     <!-- newsletter section ends -->
 

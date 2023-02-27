@@ -72,3 +72,12 @@ if (isset($_POST['delete_subcat'])) {
     $query = "UPDATE `tbl_subcat` SET `del_status`='1' WHERE `sub_id`='$sub_id'";
     $query_run = mysqli_query($conn, $query);
 }
+
+
+if (isset($_POST['update_subcat'])) {
+    $sub_id = mysqli_real_escape_string($conn, $_POST['sub_id']);
+    $sub = $_POST['sub'];
+    $sub_cat = $_POST['sub_cat'];
+    $query = "UPDATE `tbl_subcat` SET `p_name`='$name',`p_description`='$des',`price`='$price' WHERE `sub_id`='$sub_id'";
+    $query_run = mysqli_query($conn, $query);
+  }

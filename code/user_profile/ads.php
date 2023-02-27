@@ -126,6 +126,12 @@ $logid = $_SESSION['login_id'];
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <div class="alert alert-success" id="addup" style="display:none;">
+            Ads Updated successfully
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
             ads deleted successfully
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -321,15 +327,15 @@ $logid = $_SESSION['login_id'];
               <form id="editads">
 
                 <div class="form-group">
-                  <input type="hidden" name="pid" id="pid">
+                  <input type="hidden" name="pid" id="productid">
                 </div>
                 <div class="form-group">
                   <label for="name">Product Name</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required />
+                  <input type="text" class="form-control" name="name" id="pname" placeholder="Enter Name" required />
                 </div>
                 <div class="form-group">
                   <br><label for="des">Product Description</label>
-                  <input type="text" class="form-control" name="des" id="des" required>
+                  <input type="text" class="form-control" name="des" id="pdes" required>
                 </div>
                 <!-- <div class="form-group">
                   <label for="image">Product image</label>
@@ -452,17 +458,16 @@ $logid = $_SESSION['login_id'];
           var res = jQuery.parseJSON(response);
 
           if (res.status == 200) {
-            $('#pid').val(res.data.product_id);
-            $('#name').val(res.data.p_name);
-            $('#des').val(res.data.p_description);
+            $('#productid').val(res.data.product_id);
+            $('#pname').val(res.data.p_name);
+            $('#pdes').val(res.data.p_description);
             $('#catname').val(res.data.category);
             $('#subcatname').val(res.data.subcat);
             $('#price').val(res.data.price);
             $('#year').val(res.data.year);
 
-            $('#pid').val(res.data.product_id);
-
             $('#update').modal('show');
+            $('#addup').show();
           }
         }
       });
@@ -476,7 +481,7 @@ $logid = $_SESSION['login_id'];
         var pid = $(this).val();
         $.ajax({
           type: "GET",
-          url: "sql.php?pid=" + pid,
+          url: "sql.php?ppid=" + pid,
           success: function(response) {
             // alert(response);
             $('#delShow').show();
@@ -486,22 +491,44 @@ $logid = $_SESSION['login_id'];
       }
     });
 
+    // $(document).on('submit', '#editads', function(e) {
+    //   e.preventDefault();
+    //   var pid = $(this).val();
+    //   $.ajax({
+    //     type: "GET",
+    //     url: "sql.php?pid=" + pid,
+    //     success: function(response) {
+    //       alert(response);
+    //       $('#update').modal('hide');
+    //       $('#editads')[0].reset();
+
+    //       $('#myTable').load(location.href + " #myTable");
+
+    //     }
+    //   });
+    // });
+
     $(document).on('submit', '#editads', function(e) {
+      // console.log("asdsd")
       e.preventDefault();
-      var pid = $(this).val();
+
+      var formData = new FormData(this);
+      formData.append("update_sub", true);
 
       $.ajax({
-        type: "GET",
-        url: "sql.php?pid=" + pid,
+        url: "sql.php",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function(response) {
           // alert(response);
           $('#update').modal('hide');
           $('#editads')[0].reset();
-
           $('#myTable').load(location.href + " #myTable");
-
         }
       });
+
     });
   </script>
 

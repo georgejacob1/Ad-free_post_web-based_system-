@@ -31,8 +31,8 @@ if (isset($_POST["btnsubmit"])) {
   // }
 } ?>
 <?php
-if (isset($_GET['pid'])) {
-  $product_id = mysqli_real_escape_string($conn, $_GET['pid']);
+if (isset($_GET['ppid'])) {
+  $product_id = mysqli_real_escape_string($conn, $_GET['ppid']);
 
   $query = "UPDATE `tbl_product` SET `delete_status`='0' WHERE `product_id`='$product_id'";
   $query_run = mysqli_query($conn, $query);
@@ -56,8 +56,26 @@ if (isset($_GET['pid'])) {
   }
 }
 
-if (isset($_GET['pid'])) {
-  $pid = mysqli_real_escape_string($conn, $_GET['pid']);
+if (isset($_GET['aid'])) {
+  $pid = mysqli_real_escape_string($conn, $_GET['aid']);
+  $query = "SELECT a.*, b.*, c.* FROM tbl_product a INNER JOIN tbl_subcat b INNER JOIN tbl_categories c ON a.subcat_id=b.sub_id and b.cat_id=c.cat_id and a.product_id='$pid'";
+  // $query = "SELECT * FROM `tbl_subcat` WHERE sub_id='$sub_id'";
+  $query_run = mysqli_query($conn, $query);
+
+  if (mysqli_num_rows($query_run) == 1) {
+    $cat = mysqli_fetch_array($query_run);
+
+    $res = [
+      'status' => 200,
+      'data' => $cat
+    ];
+    echo json_encode($res);
+    return;
+  }
+}
+
+if (isset($_POST['update_sub'])) {
+  $pid = mysqli_real_escape_string($conn, $_POST['pid']);
   $name = $_POST['name'];
   $des = $_POST['des'];
   $price = $_POST['price'];

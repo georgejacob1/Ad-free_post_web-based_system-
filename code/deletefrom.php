@@ -9,12 +9,12 @@ if ($_SESSION['email']) {
     $name_check = mysqli_query($conn, $name);
     $row = mysqli_fetch_array($name_check);
 }
-if(isset($_GET['product']))
-{
-    $id=$_GET['product'];
-    $sq="DELETE from `tbl_cart` WHERE id=$id";
-    $re=mysqli_query($conn,$sq);
-    if($re){
+if (isset($_GET['product'])) {
+    $id = $_GET['product'];
+    $sq = "DELETE from `tbl_cart` WHERE id=$id";
+    $re = mysqli_query($conn, $sq);
+    if ($re) {
+        echo '<script>alert("product removed")</script>';
         header('location:cart.php');
     }
 }
