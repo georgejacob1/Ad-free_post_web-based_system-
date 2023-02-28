@@ -16,6 +16,16 @@ $v_check = mysqli_query($conn, $v);
 $vrow = mysqli_fetch_array($v_check);
 
 
+$fm = $vrow['login_id'];
+$m = "SELECT * FROM tbl_users  where login_id='$fm'";
+$m_check = mysqli_query($conn, $m);
+$mrow = mysqli_fetch_array($m_check);
+$u = "SELECT * FROM tbl_address  where login_id='$fm'";
+$u_check = mysqli_query($conn, $u);
+$urow = mysqli_fetch_array($u_check);
+
+
+
 $s = $vrow['subcat_id'];
 $vs = "SELECT * FROM tbl_subcat where sub_id='$s'";
 $v_check1 = mysqli_query($conn, $vs);
@@ -229,10 +239,12 @@ if (isset($_POST['submit'])) {
                         <!-- <div class="old-price">$250.00</div> -->
                     </div>
                     <div class="description">
-                        <b>NAME</b><br>
+                        <b><?php echo $mrow['user_fname']; ?> <?php echo $mrow['user_lname']; ?></b><br>
                         <b>Address</b><br>
-                        <?php echo $vrow['p_description']; ?><br>
-                        <b>Contact info:-</b><br>
+                        <?php echo $urow['house']; ?><br>
+                        <?php echo $urow['street']; ?>,<?php echo $urow['city']; ?><br>
+                        <?php echo $urow['state']; ?>,<?php echo $urow['pincode']; ?><br>
+                        <b>Contact info:-<?php echo $mrow['user_phone']; ?></b><br>
                     </div>
 
                     <div class="count-btn-group">
@@ -242,8 +254,8 @@ if (isset($_POST['submit'])) {
                             <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
                             <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
                             <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
-                            <input type="hidden" name="user" value="<?php echo $vrow['user_fname']; ?>">
-                            <input type="hidden" name="phone" value="<?php echo $vrow['user_phone']; ?>">
+                            <input type="hidden" name="user" value="<?php echo $mrow['user_fname']; ?>">
+                            <input type="hidden" name="phone" value="<?php echo $mrow['user_phone']; ?>">
                             <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
 
                             <button class="btn" name="submit" style="width: 340px;">add to wishlist</button>
@@ -310,8 +322,8 @@ if (isset($_POST['submit'])) {
                                 <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
                                 <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
                                 <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
-                                <input type="hidden" name="user" value="<?php echo $vrow['user_fname']; ?>">
-                                <input type="hidden" name="phone" value="<?php echo $vrow['user_phone']; ?>">
+                                <input type="hidden" name="user" value="<?php echo $mrow['user_fname']; ?>">
+                                <input type="hidden" name="phone" value="<?php echo $mrow['user_phone']; ?>">
                                 <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
 
                                 <button class="btn" name="submit">add to wishlist</button>

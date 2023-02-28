@@ -185,12 +185,15 @@ $logid = $_SESSION['login_id'];
 
                 <form id="saveStuden" method="post" action="edadd.php">
                   <div class="form-group">
+                    <input type="hidden" name="userid" id="userid">
+                  </div>
+                  <div class="form-group">
                     <label for="name">First Name</label>
-                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Your First Name" required />
+                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Your First Name" required pattern="[a-zA-Z]+" />
                   </div>
                   <div class="form-group">
                     <br><label for="des">Last Name</label>
-                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Your Last Name" required>
+                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Your Last Name" required pattern="[a-zA-Z]+">
                   </div>
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
@@ -225,12 +228,11 @@ $logid = $_SESSION['login_id'];
 
                 <form id="saveStuden" method="post" action="edadd.php">
                   <div class="form-group">
-                    <label for="name">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" required />
+                    <input type="hidden" name="userid" id="userid">
                   </div>
                   <div class="form-group">
                     <br><label for="des">Phone no</label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone your no" required>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone your no" required pattern="^[6-9]\d{9}$">
                   </div>
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
@@ -266,6 +268,9 @@ $logid = $_SESSION['login_id'];
 
                 <form id="saveStuden" method="post" action="edadd.php">
                   <div class="form-group">
+                    <input type="hidden" name="loginid" id="loginid">
+                  </div>
+                  <div class="form-group">
                     <label for="name">House no/apartment name</label>
                     <input type="text" class="form-control" name="house" id="house" placeholder="Enter your House no/apartment name" required />
                   </div>
@@ -279,7 +284,7 @@ $logid = $_SESSION['login_id'];
                   </div>
                   <div class="form-group">
                     <br><label for="des">state</label>
-                    <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state" required>
+                    <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state" required pattern="[a-zA-Z]+">
                   </div>
                   <div class="form-group">
                     <br><label for="des">pincode</label>
@@ -302,30 +307,12 @@ $logid = $_SESSION['login_id'];
 
 
         <div class="container-fluid">
-          <div class="alert alert-success" id="addads" style="display:none;">
-            Ads added successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-success" id="addup" style="display:none;">
-            Ads Updated successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
-            ads deleted successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
                   <h4>Name</h4>
-                  <button type="button" class="btn btn-success" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button type="button" class="btn btn-success editprofile" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa fa-edit"></i>&nbsp; Edit
                   </button>
                 </div>
@@ -353,30 +340,12 @@ $logid = $_SESSION['login_id'];
 
 
         <div class="container-fluid">
-          <div class="alert alert-success" id="addads" style="display:none;">
-            Ads added successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-success" id="addup" style="display:none;">
-            Ads Updated successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
-            ads deleted successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
                   <h4>Contact info</h4>
-                  <button type="button" class="btn btn-success" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                  <button type="button" class="btn btn-success editcontact" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                     <i class="fa fa-edit"></i>&nbsp; Edit
                   </button>
                 </div>
@@ -405,30 +374,12 @@ $logid = $_SESSION['login_id'];
 
 
         <div class="container-fluid">
-          <div class="alert alert-success" id="addads" style="display:none;">
-            Ads added successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-success" id="addup" style="display:none;">
-            Ads Updated successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
-            ads deleted successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
                   <h4>My Address</h4>
-                  <button type="button" value="<?php echo $logid; ?>" class="btn btn-success" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                  <button type="button" value="<?php echo $logid; ?>" class="btn btn-success editaddress" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                     <i class="fa fa-edit"></i>&nbsp; Edit
                   </button>
                 </div>
@@ -463,7 +414,7 @@ $logid = $_SESSION['login_id'];
       </div>
 
   </section>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
@@ -474,27 +425,67 @@ $logid = $_SESSION['login_id'];
       } else
         sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     }
-    $(document).on('click', '.btn', function() {
+    $(document).on('click', '.editprofile', function() {
 
-      var aid = $(this).val();
+      var uid = $(this).val();
 
       $.ajax({
         type: "GET",
-        url: "sql.php?aid=" + aid,
+        url: "edadd.php?uid=" + uid,
         success: function(response) {
           var res = jQuery.parseJSON(response);
 
           if (res.status == 200) {
-            $('#productid').val(res.data.product_id);
-            $('#house').val(res.data.p_name);
-            $('#pdes').val(res.data.p_description);
-            $('#catname').val(res.data.category);
-            $('#subcatname').val(res.data.subcat);
-            $('#price').val(res.data.price);
-            $('#year').val(res.data.year);
+            $('#userid').val(res.data.user_id);
+            $('#fname').val(res.data.user_fname);
+            $('#lname').val(res.data.user_lname);
+            $('#exampleModal').modal('show');
 
-            $('#update').modal('show');
-            $('#addup').show();
+          }
+        }
+      });
+
+    });
+    $(document).on('click', '.editcontact', function() {
+
+      var uid = $(this).val();
+
+      $.ajax({
+        type: "GET",
+        url: "edadd.php?uid=" + uid,
+        success: function(response) {
+          var res = jQuery.parseJSON(response);
+
+          if (res.status == 200) {
+            $('#userid').val(res.data.user_id);
+            $('#phone').val(res.data.user_phone);
+            $('#exampleModal2').modal('show');
+
+          }
+        }
+      });
+
+    });
+
+    $(document).on('click', '.editaddress', function() {
+
+      var mid = $(this).val();
+
+      $.ajax({
+        type: "GET",
+        url: "edadd.php?mid=" + mid,
+        success: function(response) {
+          var res1 = jQuery.parseJSON(response);
+
+          if (res1.status == 200) {
+            $('#loginid').val(res1.data.login_id);
+            $('#house').val(res1.data.house);
+            $('#street').val(res1.data.street);
+            $('#city').val(res1.data.city);
+            $('#state').val(res1.data.state);
+            $('#pin').val(res1.data.pincode);
+            $('#exampleModal3').modal('show');
+
           }
         }
       });

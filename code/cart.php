@@ -9,6 +9,12 @@ if ($_SESSION['email']) {
     $name_check = mysqli_query($conn, $name);
     $row = mysqli_fetch_array($name_check);
 }
+
+// if(isset)
+// $pd = $_POST['pd'];
+// $v = "SELECT * FROM tbl_cart";
+// $v_check = mysqli_query($conn, $v);
+// $vrow = mysqli_fetch_array($v_check);
 ?>
 
 <html lang="en">
@@ -107,11 +113,10 @@ if ($_SESSION['email']) {
 
                                     <!-- <th scope="col">product</th> -->
                                     <th scope="col" class="h5">Shopping Bag</th>
-
                                     <th scope="col">price</th>
-
                                     <th scope="col">Contact</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">remove</th>
+                                    <th scope="col">view</th>
 
                                 </tr>
                             </thead>
@@ -162,8 +167,16 @@ if ($_SESSION['email']) {
                                             <p class="mb-0" style="font-weight: 500;"><?php echo $contact; ?></p>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="deletefrom.php?product=<?php echo $pid; ?>" type="button" class="btn btn-dark" style="font-weight: 500;">Remove</a>
+                                            <a href="deletefrom.php?product=<?php echo $pid; ?>" type="button" class="btn btn-dark">Remove</a>
 
+
+                                        </td>
+                                        <td class="align-middle">
+                                            </br>
+                                            <form action="userview.php" method="post">
+                                                <input type="hidden" value="<?php echo $ru['pid']; ?>" name="pd">
+                                                <button class="btn btn-dark">View</button>
+                                            </form>
                                         </td>
 
                                     </tr>

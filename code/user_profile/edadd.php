@@ -37,8 +37,44 @@ if (isset($_POST['btnph'])) {
 
     $user_check = "UPDATE `tbl_users` SET `user_phone`='$phone' WHERE `login_id`='$logid'";
     $user_check_rslt = $conn->query($user_check);
-    $user_check1 = "UPDATE `tbl_login` SET `email`='$email' WHERE `login_id`='$logid'";
-    $user_check_rslt1 = $conn->query($user_check1);
+
     echo '<script> alert ("Contact info updated");</script>';
     echo '<script>window.location.href="userprofile.php";</script>';
+}
+
+if (isset($_GET['uid'])) {
+    $uid = mysqli_real_escape_string($conn, $_GET['uid']);
+    $query = "SELECT * FROM tbl_users WHERE `login_id`='$logid' ";
+    // $query = "SELECT * FROM `tbl_subcat` WHERE sub_id='$sub_id'";
+    $query_run = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($query_run) == 1) {
+        $cat = mysqli_fetch_array($query_run);
+
+        $res = [
+            'status' => 200,
+            'data' => $cat
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
+
+if (isset($_GET['mid'])) {
+    $mid = mysqli_real_escape_string($conn, $_GET['mid']);
+    $query1 = "SELECT * FROM tbl_address WHERE `login_id`='$logid' ";
+    // $query = "SELECT * FROM `tbl_subcat` WHERE sub_id='$sub_id'";
+    $query_run1 = mysqli_query($conn, $query1);
+
+    if (mysqli_num_rows($query_run1) == 1) {
+        $cat1 = mysqli_fetch_array($query_run1);
+
+        $res1 = [
+            'status' => 200,
+            'data' => $cat1
+        ];
+        echo json_encode($res1);
+        return;
+    }
 }
