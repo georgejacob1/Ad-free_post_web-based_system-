@@ -14,11 +14,13 @@ $logid = $_SESSION['login_id'];
   <link rel="stylesheet" href="userstyle.css">
   <!-- Boxicons CDN Link -->
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -189,11 +191,13 @@ $logid = $_SESSION['login_id'];
                   </div>
                   <div class="form-group">
                     <label for="name">First Name</label>
-                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Your First Name" required pattern="[a-zA-Z]+" />
+                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Your First Name" required pattern="[a-zA-Z]+" onkeyup="return ckeck()" />
+                    <span class="message text-danger" id="dms"></span>
                   </div>
                   <div class="form-group">
                     <br><label for="des">Last Name</label>
-                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Your Last Name" required pattern="[a-zA-Z]+">
+                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Your Last Name" required pattern="[a-zA-Z]+" onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsl"></span>
                   </div>
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
@@ -202,7 +206,7 @@ $logid = $_SESSION['login_id'];
 
               </div>
               <div class="modal-footer">
-                <button type="submit" name="btnname" class="btn btn-info">Submit</button>
+                <button type="submit" name="btnname" id="nsubmit" class="btn btn-info">Submit</button>
               </div>
               </form>
             </div>
@@ -232,7 +236,8 @@ $logid = $_SESSION['login_id'];
                   </div>
                   <div class="form-group">
                     <br><label for="des">Phone no</label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone your no" required pattern="^[6-9]\d{9}$">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone your no" required pattern="^[6-9]\d{9}$" onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsg2"></span>
                   </div>
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
@@ -241,7 +246,7 @@ $logid = $_SESSION['login_id'];
 
               </div>
               <div class="modal-footer">
-                <button type="submit" name="btnph" class="btn btn-info">Submit</button>
+                <button type="submit" name="btnph" class="btn btn-info" id="dsubmit">Submit</button>
               </div>
               </form>
             </div>
@@ -272,23 +277,28 @@ $logid = $_SESSION['login_id'];
                   </div>
                   <div class="form-group">
                     <label for="name">House no/apartment name</label>
-                    <input type="text" class="form-control" name="house" id="house" placeholder="Enter your House no/apartment name" required />
+                    <input type="text" class="form-control" name="house" id="house" placeholder="Enter your House no/apartment name" required onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsh"></span>
                   </div>
                   <div class="form-group">
                     <br><label for="des">street</label>
-                    <input type="text" class="form-control" name="street" id="street" placeholder="Enter your street" required>
+                    <input type="text" class="form-control" name="street" id="street" placeholder="Enter your street" required onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmss"></span>
                   </div>
                   <div class="form-group">
                     <br><label for="des">City/Town</label>
-                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter your City/Town" required>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter your City/Town" required onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsc"></span>
                   </div>
                   <div class="form-group">
                     <br><label for="des">state</label>
-                    <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state" required pattern="[a-zA-Z]+">
+                    <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state" required pattern="[a-zA-Z]+" onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsst"></span>
                   </div>
                   <div class="form-group">
                     <br><label for="des">pincode</label>
-                    <input type="text" class="form-control" name="pin" id="pin" placeholder="Enter your pincode" required>
+                    <input type="text" class="form-control" name="pin" id="pin" placeholder="Enter your pincode" required onkeyup="return ckeck()">
+                    <span class="message text-danger" id="dmsp"></span>
                   </div>
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
@@ -297,7 +307,7 @@ $logid = $_SESSION['login_id'];
 
               </div>
               <div class="modal-footer">
-                <button type="submit" name="btnsubmit" class="btn btn-info">Submit</button>
+                <button type="submit" name="btnsubmit" class="btn btn-info" id="asubmit">Submit</button>
               </div>
               </form>
             </div>
@@ -416,6 +426,106 @@ $logid = $_SESSION['login_id'];
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
+    function ckeck() {
+      var dph = document.getElementById("phone").value;
+      var expr = /^[6-9]\d{9}$/;
+      if (dph != "" && expr.test(dph) == false) {
+        document.getElementById('dmsg2').style.display = "block";
+        document.getElementById('dmsg2').innerHTML = "Invalid Phone number";
+        document.getElementById('dsubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsg2').style.display = "none";
+        document.getElementById('dsubmit').disabled = false;
+      }
+
+      var f1 = document.getElementById("fname").value;
+      var l1 = document.getElementById("lname").value;
+      var s1 = /^[a-zA-Z]+$/;
+      if (f1 != "" && s1.test(f1) == false) {
+
+        document.getElementById('dms').style.display = "block";
+        document.getElementById('dms').innerHTML = "Invalid Name.It must be alphabet";
+        document.getElementById('nsubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dms').style.display = "none";
+        document.getElementById('nsubmit').disabled = false;
+      }
+
+      if (l1 != "" && s1.test(l1) == false) {
+
+        document.getElementById('dmsl').style.display = "block";
+        document.getElementById('dmsl').innerHTML = "Invalid Name.It must be alphabet";
+        document.getElementById('nsubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsl').style.display = "none";
+        document.getElementById('nsubmit').disabled = false;
+      }
+      var h = document.getElementById("house").value;
+      if (h != "" == false) {
+        document.getElementById('dmsh').style.display = "block";
+        document.getElementById('dmsh').innerHTML = "field required";
+        document.getElementById('asubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsh').style.display = "none";
+        document.getElementById('asubmit').disabled = false;
+      }
+      var se = document.getElementById("street").value;
+      if (se != "" == false) {
+        document.getElementById('dmss').style.display = "block";
+        document.getElementById('dmss').innerHTML = "field required";
+        document.getElementById('asubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmss').style.display = "none";
+        document.getElementById('asubmit').disabled = false;
+      }
+      var ci = document.getElementById("city").value;
+      if (ci != "" == false) {
+        document.getElementById('dmsc').style.display = "block";
+        document.getElementById('dmsc').innerHTML = "field required";
+        document.getElementById('asubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsc').style.display = "none";
+        document.getElementById('asubmit').disabled = false;
+      }
+      var st = document.getElementById("state").value;
+      if (st != "" == false) {
+        document.getElementById('dmsst').style.display = "block";
+        document.getElementById('dmsst').innerHTML = "field required";
+        document.getElementById('asubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsst').style.display = "none";
+        document.getElementById('asubmit').disabled = false;
+      }
+      var p1 = document.getElementById("pin").value;
+      var p2 = /^\d{6}$/;
+      if (p1 != "" && p2.test(p1) == false) {
+
+        document.getElementById('dmsp').style.display = "block";
+        document.getElementById('dmsp').innerHTML = "Invalid pincode.It must be 6 numbers";
+        document.getElementById('asubmit').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsp').style.display = "none";
+        document.getElementById('asubmit').disabled = false;
+      }
+
+    }
+
+
+
+
+
+
+
+
+
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
     sidebarBtn.onclick = function() {

@@ -192,7 +192,7 @@ $logid = $_SESSION['login_id'];
                             <td><?= $cc['category'] ?></td>
                             <td><?= $s['subcat'] ?></td>
                             <td><?= $prod['year'] ?></td>
-                            <td><?= $prod['price'] ?></td>
+                            <td>RS.<?= $prod['price'] ?></td>
                             <td>
                               <button type="button" value="<?php echo $prod['product_id']; ?>" class="editShowBtn fa fa-edit" data-bs-toggle="modal" style="color: #0056b3;" data-bs-target="#update"></button> &nbsp;
                               <button type="button" value="<?php echo $prod['product_id']; ?>" class="deleteShowBtn fa fa-trash" style="color: #0056b3;"></button>
@@ -229,11 +229,13 @@ $logid = $_SESSION['login_id'];
               <form id="saveStuden">
                 <div class="form-group">
                   <label for="name">Product Name</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required />
+                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name" required onkeyup="return vali()" />
+                  <span class="message text-danger" id="dmspro"></span>
                 </div>
                 <div class="form-group">
                   <br><label for="des">Product Description</label>
-                  <input type="text" class="form-control" name="des" id="des" required>
+                  <input type="text" class="form-control" name="des" id="des" placeholder="Enter Product Description" required onkeyup="return vali()">
+                  <span class="message text-danger" id="dmsd"></span>
                 </div>
                 <div class="form-group">
                   <label for="image">Product image</label>
@@ -287,7 +289,7 @@ $logid = $_SESSION['login_id'];
 
                   <div class="col-md-4 form-group">
                     <label for="qua">Year of Purchase</label>
-                    <input type="number" class="form-control" name="year" />
+                    <input type="number" class="form-control" min="1000" name="year" />
 
                   </div>
 
@@ -304,7 +306,7 @@ $logid = $_SESSION['login_id'];
 
             </div>
             <div class="modal-footer">
-              <button type="submit" name="btnsubmit" class="btn btn-info">Submit</button>
+              <button type="submit" name="btnsubmit" id="addsub" class="btn btn-info">Submit</button>
             </div>
             </form>
           </div>
@@ -331,11 +333,13 @@ $logid = $_SESSION['login_id'];
                 </div>
                 <div class="form-group">
                   <label for="name">Product Name</label>
-                  <input type="text" class="form-control" name="name" id="pname" placeholder="Enter Name" required />
+                  <input type="text" class="form-control" name="name" id="pname" placeholder="Enter Product Name" required onkeyup="return va()" />
+                  <span class="message text-danger" id="dmspro2"></span>
                 </div>
                 <div class="form-group">
                   <br><label for="des">Product Description</label>
-                  <input type="text" class="form-control" name="des" id="pdes" required>
+                  <input type="text" class="form-control" name="des" id="pdes" placeholder="Product Description" required onkeyup="return va()">
+                  <span class="message text-danger" id="dmsd2"></span>
                 </div>
                 <!-- <div class="form-group">
                   <label for="image">Product image</label>
@@ -376,7 +380,7 @@ $logid = $_SESSION['login_id'];
 
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info">Submit</button>
+              <button type="submit" class="btn btn-info" id="editsub">Submit</button>
             </div>
             </form>
           </div>
@@ -410,6 +414,66 @@ $logid = $_SESSION['login_id'];
     // }
 
 
+    function vali() {
+      var p1 = document.getElementById("name").value;
+      // var p2 = /^\d{6}$/;
+      if (p1 != "" == false) {
+
+        document.getElementById('dmspro').style.display = "block";
+        document.getElementById('dmspro').innerHTML = "Enter the product name";
+        document.getElementById('addsub').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmspro').style.display = "none";
+        document.getElementById('addsub').disabled = false;
+      }
+
+
+
+      var d1 = document.getElementById("des").value;
+      // var p2 = /^\d{6}$/;
+      if (d1 != "" == false) {
+
+        document.getElementById('dmsd').style.display = "block";
+        document.getElementById('dmsd').innerHTML = "Enter the Product Description";
+        document.getElementById('addsub').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsd').style.display = "none";
+        document.getElementById('addsub').disabled = false;
+      }
+    }
+
+    function va() {
+      var p2 = document.getElementById("pname").value;
+      // var p2 = /^\d{6}$/;
+      if (p2 != "" == false) {
+
+        document.getElementById('dmspro2').style.display = "block";
+        document.getElementById('dmspro2').innerHTML = "Enter the product name";
+        document.getElementById('editsub').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmspro2').style.display = "none";
+        document.getElementById('editsub').disabled = false;
+      }
+
+
+
+
+      var d2 = document.getElementById("pdes").value;
+      // var p2 = /^\d{6}$/;
+      if (d2 != "" == false) {
+
+        document.getElementById('dmsd2').style.display = "block";
+        document.getElementById('dmsd2').innerHTML = "Enter the Product Description";
+        document.getElementById('editsub').disabled = true;
+        return false;
+      } else {
+        document.getElementById('dmsd2').style.display = "none";
+        document.getElementById('editsub').disabled = false;
+      }
+    }
 
     function chek() {
       jQuery.ajax({
@@ -467,7 +531,7 @@ $logid = $_SESSION['login_id'];
             $('#year').val(res.data.year);
 
             $('#update').modal('show');
-            $('#addup').show();
+
           }
         }
       });
@@ -526,6 +590,7 @@ $logid = $_SESSION['login_id'];
           $('#update').modal('hide');
           $('#editads')[0].reset();
           $('#myTable').load(location.href + " #myTable");
+          $('#addup').show();
         }
       });
 
