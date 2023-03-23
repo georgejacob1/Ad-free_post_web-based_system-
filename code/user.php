@@ -9,7 +9,7 @@ if ($_SESSION['email']) {
     $name_check = mysqli_query($conn, $name);
     $row = mysqli_fetch_array($name_check);
 }
-
+$loginid1 = $row['login_id'];
 if (isset($_POST['submit'])) {
     $pname = $_POST['pname'];
     $price = $_POST['price'];
@@ -51,7 +51,8 @@ if (isset($_POST['submit'])) {
         .dropbtn {
             background-color: #fff;
             color: black;
-            padding: 16px;
+            padding-left: 15px;
+            padding-right: 15px;
             font-size: 1.7rem;
             border: none;
             cursor: pointer;
@@ -60,6 +61,7 @@ if (isset($_POST['submit'])) {
         .dropdown {
             position: relative;
             display: inline-block;
+            font-size: 5px;
         }
 
         .dropdown-content {
@@ -69,14 +71,16 @@ if (isset($_POST['submit'])) {
             min-width: 195px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
+            font-size: 5px;
         }
 
         .dropdown-content a {
             color: black;
             padding: 2px;
             text-decoration: none;
-            font-weight: 400;
+            font-weight: 300;
             display: block;
+            font-size: 5px;
         }
 
         .dropdown-content a:hover {
@@ -118,20 +122,28 @@ if (isset($_POST['submit'])) {
     <header class="header">
 
         <div class="header-1">
-
-
-            <a href="#"><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a>
+            <a href="user.php"><img src="image/logo.png" class="logo" alt="" height="60px" width="60px" /></a>
             <form action="" class="search-form">
-                <input type="search" name="" placeholder="search here..." id="search-box">
+                <input type="search" name="" placeholder="search here..." id="search-box" />
                 <label for="search-box" class="fas fa-search"></label>
             </form>
 
-            <div class="icons">
+            <div class="icons ph">
                 <div id="search-btn" class="fas fa-search"></div>
-                <a href="cart.php" class="fas fa-heart"></a>
+                <form action="chat/users.php" method="post">
+                    <input type="hidden" value="<?php echo $row['login_id']; ?>" name="prouser">
+
+                    <button class='bx bx-comment bx-tada ' style="font-size: 25px; margin-top:15px" type="submit" name="chat"></button>
+                </form>
+                <div class="p-3">
+
+
+                    <a href="cart.php" class="fas fa-heart mt-2" style=" margin-top:15px"></i></a>
+
+                </div>
                 <!-- <a href="#" class="fas fa-shopping-cart"></a> -->
-                <div class="dropdown m-5">
-                    <button class="dropbtn">Hi, <?php echo $row['user_fname'] . " " . $row['user_lname']; ?> <i class='bx bx-chevron-down'></i></button>
+                <div class="dropdown ">
+                    <button class="dropbtn"> <?php echo $row['user_fname'] . " " . $row['user_lname']; ?> <i class='bx bx-chevron-down'></i></button>
                     <div class="dropdown-content" style=" margin-left: 0px;">
                         <a href="user_profile/userprofile.php"> <i class="fas fa-user"></i> My profile</a>
                         <a href="logout.php"><i class='bx bx-log-out'></i> <span class="links_name">Log out</span></a>
@@ -139,10 +151,14 @@ if (isset($_POST['submit'])) {
                      <a href="#">Link 3</a> -->
                     </div>
                 </div>
-                <!-- <a style="font-family: poppins;" href="logout.php" class="fas fa-user">Hi, <?php echo $row['user_fname'] . " " . $row['user_lname']; ?></a> -->
-            </div>
+                <div class="pl-3">
+                    <img src="image/pic-2.png" alt="" style=" margin-top:15px" />
 
+                </div>
+            </div>
         </div>
+
+
 
         <div class="header-2">
             <nav class="navbar">
@@ -161,9 +177,9 @@ if (isset($_POST['submit'])) {
     <!-- bottom navbar  -->
 
     <nav class="bottom-navbar">
-        <a href="#home" class="fas fa-home"></a>
+        <!-- <a href="#home" class="fas fa-home"></a> -->
         <a href="#featured" class="fas fa-list"></a>
-        <a href="#arrivals" class="fas fa-tags"></a>
+        <!-- <a href="#arrivals" class="fas fa-tags"></a> -->
         <a href="#reviews" class="fas fa-comments"></a>
         <a href="#blogs" class="fas fa-blog"></a>
     </nav>
@@ -265,14 +281,12 @@ if (isset($_POST['submit'])) {
     <!-- featured section starts  -->
 
     <section class="featured" id="featured">
-
-        <h1 class="heading"> <span>Recent ads</span> </h1>
+        <h1 class="heading"><span>Recent ads</span></h1>
 
         <div class="swiper featured-slider">
-
             <div class="swiper-wrapper">
                 <?php
-                $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1'";
+                echo $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1' where  and a.login_id!='$loginid1'";
                 $v_check = mysqli_query($conn, $v);
                 while ($vrow = mysqli_fetch_array($v_check)) {
                 ?>
@@ -281,9 +295,27 @@ if (isset($_POST['submit'])) {
 
                         <div class="icons">
 
-                            <form action="userview.php" method="post">
+
+                            <form method="post" action="">
+
+                                <input type="hidden" name="pname" value="<?php echo $vrow['p_name']; ?>">
+                                <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
+                                <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
+                                <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
+                                <input type="hidden" name="user" value="<?php echo $mrow['user_fname']; ?>">
+                                <input type="hidden" name="phone" value="<?php echo $mrow['user_phone']; ?>">
+                                <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
                                 <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:25px"></button>
+                                <?php
+                                $pid = $vrow['product_id'];
+                                $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
+                                $run11 = mysqli_query($conn, $sql11);
+                                $w = mysqli_num_rows($run11);
+                                if ($w == 0) { ?>
+                                    <button style="width: 30px;height:10px;color:#fff" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\wishlist.png" alt="" style="width: 50px;height:50px;"></button>
+                                <?php } else { ?>
+                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" onclick="window.location.href='cart.php'"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
+                                <?php  } ?>
                             </form>
                         </div>
                         <div class="image">
@@ -293,17 +325,15 @@ if (isset($_POST['submit'])) {
                             <h3><?php echo $vrow['p_name']; ?></h3>
                             <div class="price" style="font-size: 15px;">Contact info:- <?php echo $vrow['user_phone']; ?> </div>
                             <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
-                            <form method="post" action="">
 
-                                <input type="hidden" name="pname" value="<?php echo $vrow['p_name']; ?>">
-                                <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
-                                <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
-                                <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
-                                <input type="hidden" name="user" value="<?php echo $vrow['user_fname']; ?>">
-                                <input type="hidden" name="phone" value="<?php echo $vrow['user_phone']; ?>">
-                                <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
 
-                                <button class="btn" name="submit">add to wishlist</button>
+                            <form action="userview.php" method="post">
+                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                                <button class="btn">View </button>
+
+
+
+
                             </form>
                         </div>
                     </div>
@@ -319,7 +349,6 @@ if (isset($_POST['submit'])) {
             <div class="swiper-button-prev"></div>
 
         </div>
-
     </section>
 
     <!-- featured section ends -->
@@ -801,7 +830,30 @@ if (isset($_POST['submit'])) {
 
 
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        $(document).on('click', '.viewwish', function(e) {
+            e.preventDefault();
 
+            var prod_id = $(this).val();
+            // alert(prod_id);
+            $.ajax({
+                type: "POST",
+                url: "viewsql.php",
+                data: {
+
+                    'deleproduct': true,
+                    'prod_id': prod_id
+                },
+                success: function(response) {
+                    $('.description').load(' .description');
+                    window.location.reload();
+                    // alert(response);
+
+                }
+            });
+
+        });
+    </script>
     <!-- custom js file link  -->
     <script src="script.js"></script>
 

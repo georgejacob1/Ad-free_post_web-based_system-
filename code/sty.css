@@ -95,7 +95,7 @@ section {
 
 .header .header-1 {
   background: #fff;
-  padding: 1.5rem 2%;
+  padding: 1.5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -142,12 +142,19 @@ section {
   color: var(--green);
 }
 
+.ph{width:auto;display: flex;/* flex-direction: row; */}
+
 .header .header-1 .icons div,
 .header .header-1 .icons a {
   font-size: 2.5rem;
-  margin-left: 0rem;
+  margin-left: .5rem;
   color: var(--black);
   cursor: pointer;
+}
+.header .header-1 .icons img {
+  width:35px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .header .header-1 .icons div:hover,

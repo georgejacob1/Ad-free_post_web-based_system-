@@ -21,7 +21,7 @@ if(isset($_POST['register'])){
         if($reg_query){
             $user_reg = "INSERT INTO `tbl_users`(`user_fname`, `user_lname`, `user_phone`, `user_status`, `login_id`) VALUES ('$fname','$lname','$phone','active','$last_id')";
             $user_reg_query = mysqli_query($conn,$user_reg);
-            $user_regc = "INSERT INTO `tbl_address`(`login_id`, `house`, `street`, `city`, `state`, `pincode`) VALUES ('$last_id','NILL','NILL','NILL','NILL','0')";
+            $user_regc = "INSERT INTO `tbl_address`(`login_id`, `house`, `street`, `city`, `state`, `pincode`,`profileimg`) VALUES ('$last_id','NILL','NILL','NILL','NILL','0','NILL')";
             $user_regc_query = mysqli_query($conn,$user_regc);
             echo'<script> alert ("Account created");</script>';
             echo'<script>window.location.href="login.php";</script>'; 

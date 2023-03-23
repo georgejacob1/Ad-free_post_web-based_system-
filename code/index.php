@@ -174,44 +174,45 @@ include 'db_con.php';
 
     <section class="featured" id="featured">
         <h1 class="heading"><span>Recent ads</span></h1>
+        <div id="searched">
+            <div class="swiper featured-slider">
+                <div class="swiper-wrapper" id="searched">
 
-        <div class="swiper featured-slider">
-            <div class="swiper-wrapper" id="searched">
+                    <?php
+                    $v = "SELECT * FROM tbl_product where delete_status='1'";
+                    $v_check = mysqli_query($conn, $v);
+                    while ($vrow = mysqli_fetch_array($v_check)) {
+                    ?>
 
-                <?php
-                $v = "SELECT * FROM tbl_product where delete_status='1'";
-                $v_check = mysqli_query($conn, $v);
-                while ($vrow = mysqli_fetch_array($v_check)) {
-                ?>
+                        <div class="swiper-slide box">
+                            <div class="icons">
 
-                    <div class="swiper-slide box">
-                        <div class="icons">
+                                <form action="proview.php" method="post">
+                                    <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                                    <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
+                                </form>
+                            </div>
 
-                            <form action="proview.php" method="post">
-                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
-                            </form>
+                            <div class="image">
+                                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px" />
+                            </div>
+                            <div class="content">
+                                <h3><?php echo $vrow['p_name']; ?></h3>
+                                <div class="price">Rs.<?php echo $vrow['price']; ?></div>
+                                <a href="login.php" class="btn">add to wishlist</a>
+                            </div>
                         </div>
-
-                        <div class="image">
-                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px" />
-                        </div>
-                        <div class="content">
-                            <h3><?php echo $vrow['p_name']; ?></h3>
-                            <div class="price">Rs.<?php echo $vrow['price']; ?></div>
-                            <a href="login.php" class="btn">add to wishlist</a>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
+                    <?php
+                    }
+                    ?>
 
 
+
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
 
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
         </div>
 
     </section>

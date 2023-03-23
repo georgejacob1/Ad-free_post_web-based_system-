@@ -118,274 +118,289 @@ $logid = $_SESSION['login_id'];
     <div class="home-content">
 
 
-      <div class="card w-auto m-5 p-5">
-        <div class="container-fluid">
-          <div class="alert alert-success" id="addads" style="display:none;">
-            Ads added successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-success" id="addup" style="display:none;">
-            Ads Updated successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
-            ads deleted successfully
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4>My ads</h4>
-                  <button type="button" class="btn btn-success" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa fa-plus"></i>&nbsp; Add ads
-                  </button>
-                </div>
-                <div class="card-body">
+      <!-- <div class="card w-auto m-5 p-5"> -->
+      <div class="container-fluid">
+        <div class="alert alert-success" id="addads" style="display:none;">
+          Ads added successfully
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success" id="addup" style="display:none;">
+          Ads Updated successfully
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-danger" id="delShow" role="alert" style="display:none;">
+          ads deleted successfully
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>My ads</h4>
+                <button type="button" class="btn btn-success" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="fa fa-plus"></i>&nbsp; Add ads
+                </button>
+              </div>
+              <div class="card-body">
 
-                  <table id="myTable" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Sl.No.</th>
-                        <th>Ads image</th>
-                        <th>Product</th>
-                        <th>Discription</th>
-                        <th>Category</th>
-                        <th>Sub-category</th>
-                        <th>Year of purchase</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
+                <table id="myTable" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Sl.No.</th>
+                      <th>Ads image</th>
+                      <th>Product</th>
+                      <th>Discription</th>
+                      <th>Category</th>
+                      <th>Sub-category</th>
+                      <th>Year of purchase</th>
+                      <th>Price</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
 
 
-                      $view = "SELECT * FROM tbl_product where login_id=$logid";
-                      $query_run = mysqli_query($conn, $view);
-                      $i = 1;
-                      while ($prod = mysqli_fetch_array($query_run)) {
-                        if ($prod['delete_status'] == "1") {
-                          $sid = $prod['subcat_id'];
-                          $sub = "SELECT * FROM tbl_subcat where sub_id=$sid";
-                          $sub_run = mysqli_query($conn, $sub);
-                          $s = mysqli_fetch_array($sub_run);
-                          $c = $s['cat_id'];
-                          $cat = "SELECT * FROM tbl_categories where cat_id=$c";
-                          $cat_run = mysqli_query($conn, $cat);
-                          $cc = mysqli_fetch_array($cat_run);
+                    $view = "SELECT * FROM tbl_product where login_id=$logid";
+                    $query_run = mysqli_query($conn, $view);
+                    $i = 1;
+                    while ($prod = mysqli_fetch_array($query_run)) {
+                      if ($prod['delete_status'] == "1") {
+                        $sid = $prod['subcat_id'];
+                        $sub = "SELECT * FROM tbl_subcat where sub_id=$sid";
+                        $sub_run = mysqli_query($conn, $sub);
+                        $s = mysqli_fetch_array($sub_run);
+                        $c = $s['cat_id'];
+                        $cat = "SELECT * FROM tbl_categories where cat_id=$c";
+                        $cat_run = mysqli_query($conn, $cat);
+                        $cc = mysqli_fetch_array($cat_run);
 
-                      ?>
-                          <tr>
-                            <td><?php echo $i; ?><input type="hidden" name="pid" id="pid" value="<?php echo $prod['product_id']; ?>"></td>
+                    ?>
+                        <tr>
+                          <td><?php echo $i; ?><input type="hidden" name="pid" id="pid" value="<?php echo $prod['product_id']; ?>"></td>
 
-                            <td><img src="images/<?php echo $prod['p_image']; ?>" style="width: 200px; height: 200px;" alt="poster"></td>
-                            <td><?= $prod['p_name'] ?></td>
-                            <td><?= $prod['p_description'] ?></td>
+                          <td><img src="images/<?php echo $prod['p_image']; ?>" style="width: 200px; height: 200px;" alt="poster"></td>
+                          <td><?= $prod['p_name'] ?></td>
+                          <td><?= $prod['p_description'] ?></td>
 
-                            <td><?= $cc['category'] ?></td>
-                            <td><?= $s['subcat'] ?></td>
-                            <td><?= $prod['year'] ?></td>
-                            <td>RS.<?= $prod['price'] ?></td>
-                            <td>
-                              <button type="button" value="<?php echo $prod['product_id']; ?>" class="editShowBtn fa fa-edit" data-bs-toggle="modal" style="color: #0056b3;" data-bs-target="#update"></button> &nbsp;
-                              <button type="button" value="<?php echo $prod['product_id']; ?>" class="deleteShowBtn fa fa-trash" style="color: #0056b3;"></button>
-                            </td>
-                          </tr>
-                      <?php
-                          $i++;
-                        }
+                          <td><?= $cc['category'] ?></td>
+                          <td><?= $s['subcat'] ?></td>
+                          <td><?= $prod['year'] ?></td>
+                          <td>RS.<?= $prod['price'] ?></td>
+                          <td>
+                            <button type="button" value="<?php echo $prod['product_id']; ?>" class="editShowBtn fa fa-edit" data-bs-toggle="modal" style="color: #0056b3;" data-bs-target="#update"></button> &nbsp;
+                            <button type="button" value="<?php echo $prod['product_id']; ?>" class="deleteShowBtn fa fa-trash" style="color: #0056b3;"></button>&nbsp;
+                            <form action="../userview.php" method="post">
+                              <input type="hidden" value="<?php echo $prod['product_id']; ?>" name="pd">
+                              <button type="submit" class="viewShowBtn fa fa-eye" style="color: #0056b3;"></button>
+                            </form>
+                          </td>
+                        </tr>
+                    <?php
+                        $i++;
                       }
-                      ?>
+                    }
+                    ?>
 
-                    </tbody>
-                  </table>
+                  </tbody>
+                </table>
 
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add ads</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add ads</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button> -->
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
 
 
-              <form id="saveStuden">
-                <div class="form-group">
-                  <label for="name">Product Name</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name" required onkeyup="return vali()" />
-                  <span class="message text-danger" id="dmspro"></span>
-                </div>
-                <div class="form-group">
-                  <br><label for="des">Product Description</label>
-                  <input type="text" class="form-control" name="des" id="des" placeholder="Enter Product Description" required onkeyup="return vali()">
-                  <span class="message text-danger" id="dmsd"></span>
-                </div>
-                <div class="form-group">
-                  <label for="image">Product image</label>
-                  <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="photo" id="image" required>
-                </div>
-                <div class="form-group">
+            <form id="saveStuden">
+              <div class="form-group">
+                <label for="name">Product Name</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name" required onkeyup="return vali()" />
+                <span class="message text-danger" id="dmspro"></span>
+              </div>
+              <div class="form-group">
+                <br><label for="des">Product Description</label>
+                <textarea rows="4" cols="50" class="form-control" name="des" id="des" placeholder="Enter Product Description" required onkeyup="return vali()"></textarea>
+                <span class="message text-danger" id="dmsd"></span>
+              </div>
+              <div class="form-group">
+                <label for="image">Product image</label>
+                <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="photo" id="image" required onchange="return dvalidateimage2()">
+                <span id="dim1" style='color:red;'></span>
+              </div>
+              <div class="form-group">
+                <label for="image">Product image</label>
+                <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="photo2" id="image2" required onchange="return dvalidateimage2()">
+                <span id="dim2" style='color:red;'></span>
+              </div>
+              <div class="form-group">
+                <label for="image">Product image</label>
+                <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="photo3" id="image3" required onchange="return dvalidateimage2()">
+                <span id="dim3" style='color:red;'></span>
+              </div>
+              <div class="form-group">
+                <?php
+
+                $sql = mysqli_query($conn, "select * from tbl_categories where del_status='0'");
+                ?>
+                <label>Category Name</label><br>
+
+
+                <select name="cid" id="cid" onInput="chek()" required>
+                  <option value="">--select--</option>
+                  <?php
+                  while ($row = mysqli_fetch_array($sql)) {
+
+                  ?>
+                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+
                   <?php
 
-                  $sql = mysqli_query($conn, "select * from tbl_categories where del_status='0'");
+                  }
                   ?>
-                  <label>Category Name</label><br>
 
-
-                  <select name="cid" id="cid" onInput="chek()" required>
-                    <option value="">--select--</option>
-                    <?php
-                    while ($row = mysqli_fetch_array($sql)) {
-
-                    ?>
-                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-
-                    <?php
-
-                    }
-                    ?>
-
-                  </select>
-                </div>
-                <div class="form-group">
-                  <?php
+                </select>
+              </div>
+              <div class="form-group">
+                <?php
 
 
 
-                  $sql1 = mysqli_query($conn, "select * from tbl_subcat");
-                  ?>
-                  <label>Subcategory Name</label><br>
+                $sql1 = mysqli_query($conn, "select * from tbl_subcat");
+                ?>
+                <label>Subcategory Name</label><br>
 
 
-                  <select name="sid" id="sid" onchange="showResult(this.value)" required>
+                <select name="sid" id="sid" onchange="showResult(this.value)" required>
 
 
 
-                  </select>
+                </select>
+              </div>
+
+
+
+
+
+              <div class="row">
+
+                <div class="col-md-4 form-group">
+                  <label for="qua">Year of Purchase</label>
+                  <input type="number" class="form-control" min="1000" name="year" />
+
                 </div>
 
+                <div class="col-md-4 form-group">
+                  <label for="price">Price</label>
+                  <input type="number" class="form-control" name="price" min="1" oninput="" required />
 
-
-
-
-                <div class="row">
-
-                  <div class="col-md-4 form-group">
-                    <label for="qua">Year of Purchase</label>
-                    <input type="number" class="form-control" min="1000" name="year" />
-
-                  </div>
-
-                  <div class="col-md-4 form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" name="price" min="1" oninput="" required />
-
-                  </div>
                 </div>
-                <!-- <div class="form-group">
+              </div>
+              <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
                   <textarea class="form-control" id="message-text"></textarea>
-                </div> -->
+              </div> -->
 
-            </div>
-            <div class="modal-footer">
-              <button type="submit" name="btnsubmit" id="addsub" class="btn btn-info">Submit</button>
-            </div>
-            </form>
           </div>
+          <div class="modal-footer">
+            <button type="submit" name="btnsubmit" id="addsub" class="btn btn-info">Submit</button>
+          </div>
+          </form>
         </div>
       </div>
+    </div>
 
-      <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit ads</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit ads</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button> -->
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
 
 
-              <form id="editads">
+            <form id="editads">
 
-                <div class="form-group">
-                  <input type="hidden" name="pid" id="productid">
-                </div>
-                <div class="form-group">
-                  <label for="name">Product Name</label>
-                  <input type="text" class="form-control" name="name" id="pname" placeholder="Enter Product Name" required onkeyup="return va()" />
-                  <span class="message text-danger" id="dmspro2"></span>
-                </div>
-                <div class="form-group">
-                  <br><label for="des">Product Description</label>
-                  <input type="text" class="form-control" name="des" id="pdes" placeholder="Product Description" required onkeyup="return va()">
-                  <span class="message text-danger" id="dmsd2"></span>
-                </div>
-                <!-- <div class="form-group">
+              <div class="form-group">
+                <input type="hidden" name="pid" id="productid">
+              </div>
+              <div class="form-group">
+                <label for="name">Product Name</label>
+                <input type="text" class="form-control" name="name" id="pname" placeholder="Enter Product Name" required onkeyup="return va()" />
+                <span class="message text-danger" id="dmspro2"></span>
+              </div>
+              <div class="form-group">
+                <br><label for="des">Product Description</label>
+                <input type="text" class="form-control" name="des" id="pdes" placeholder="Product Description" required onkeyup="return va()">
+                <span class="message text-danger" id="dmsd2"></span>
+              </div>
+              <!-- <div class="form-group">
                   <label for="image">Product image</label>
                   <input type="file" class="form-control" disabled accept="image/gif, image/jpeg, image/png, image/jpg" name="photo" id="image">
                 </div> -->
-                <div class="form-group">
-                  <label>Category Name</label><br>
-                  <input type="text" id="catname" disabled>
+              <div class="form-group">
+                <label>Category Name</label><br>
+                <input type="text" id="catname" disabled>
+              </div>
+              <div class="form-group">
+                <label>Subcategory Name</label><br>
+
+                <input type="text" id="subcatname" disabled>
+              </div>
+
+
+
+
+
+              <div class="row">
+
+                <div class="col-md-4 form-group">
+                  <label for="qua">Year of Purchase</label>
+                  <input type="number" id="year" class="form-control" disabled name="year" />
+
                 </div>
-                <div class="form-group">
-                  <label>Subcategory Name</label><br>
 
-                  <input type="text" id="subcatname" disabled>
+                <div class="col-md-4 form-group">
+                  <label for="price">Price</label>
+                  <input type="number" class="form-control" name="price" id="price" min="1" oninput="" required />
+
                 </div>
-
-
-
-
-
-                <div class="row">
-
-                  <div class="col-md-4 form-group">
-                    <label for="qua">Year of Purchase</label>
-                    <input type="number" id="year" class="form-control" disabled name="year" />
-
-                  </div>
-
-                  <div class="col-md-4 form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" name="price" id="price" min="1" oninput="" required />
-
-                  </div>
-                </div>
-                <!-- <div class="form-group">
+              </div>
+              <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
                   <textarea class="form-control" id="message-text"></textarea>
                 </div> -->
 
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id="editsub">Submit</button>
-            </div>
-            </form>
           </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-info" id="editsub">Submit</button>
+          </div>
+          </form>
         </div>
       </div>
+    </div>
 
 
   </section>
@@ -402,6 +417,81 @@ $logid = $_SESSION['login_id'];
     }
   </script>
   <script>
+    function dvalidateimage2() {
+
+      var fdl = new FormData();
+      var files = $('#image')[0].files;
+
+      // Check file selected or not
+      if (files.length > 0) {
+        fdl.append('file', files[0]);
+
+        $.ajax({
+          url: 'sql.php',
+          type: 'post',
+          data: fdl,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+
+            $("#dim1").html(response);
+
+          },
+        });
+      } else {
+        alert("Please select a file.");
+      }
+
+
+      var fd2 = new FormData();
+      var files2 = $('#image2')[0].files;
+
+      // Check file selected or not
+      if (files2.length > 0) {
+        fd2.append('file2', files2[0]);
+
+        $.ajax({
+          url: 'sql.php',
+          type: 'post',
+          data: fd2,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+
+            $("#dim2").html(response);
+
+          },
+        });
+      } else {
+        alert("Please select a file.");
+      }
+
+
+      var fd3 = new FormData();
+      var files3 = $('#image3')[0].files;
+
+      // Check file selected or not
+      if (files3.length > 0) {
+        fd3.append('file3', files3[0]);
+
+        $.ajax({
+          url: 'sql.php',
+          type: 'post',
+          data: fd3,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+
+            $("#dim3").html(response);
+
+          },
+        });
+      } else {
+        alert("Please select a file.");
+      }
+    }
+
+
     // function Validstr() {
     //   var val = document.getElementById('name').value;
     //   if (!val.match(/^[a-zA-Z ]*$/)) {

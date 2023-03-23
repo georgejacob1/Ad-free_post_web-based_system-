@@ -21,24 +21,24 @@ while ($vrow = mysqli_fetch_array($result)) {
 
 
     <div class="swiper-slide box" data-swiper-slide-index="<?= $cc ?>" style="width: 308px; margin-right: 10px;" role="group" aria-label=" <?= $cc ?>/ <?= $rc ?>">
-        
-            <div class="icons">
-                <!-- <a href="#" class="fas fa-search"></a>
-                            <a href="#" class="fas fa-heart"></a> -->
-                <form action="proview.php" method="post">
-                    <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                    <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
-                </form>
-            </div>
 
-            <div class="image">
-                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px">
-            </div>
-            <div class="content">
-                <h3><?php echo $vrow['p_name']; ?></h3>
-                <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
-                <a href="login.php" class="btn">add to wishlist</a>
-      
+        <div class="icons">
+            <!-- <a href="#" class="fas fa-search"></a>
+                            <a href="#" class="fas fa-heart"></a> -->
+            <form action="proview.php" method="post">
+                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
+            </form>
+        </div>
+
+        <div class="image">
+            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px">
+        </div>
+        <div class="content">
+            <h3><?php echo $vrow['p_name']; ?></h3>
+            <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
+            <a href="login.php" class="btn">add to wishlist</a>
+        </div>
     </div>
 <?php
 }

@@ -17,6 +17,58 @@ if (isset($_POST['btnsubmit'])) {
     echo '<script>window.location.href="userprofile.php";</script>';
 }
 
+
+if (isset($_POST['btnpro'])) {
+    $c_image = $_FILES['profileimg']['name'];
+    $c_image_temp = $_FILES['profileimg']['tmp_name'];
+
+    move_uploaded_file($c_image_temp, "images/$c_image");
+
+    $c_update = "UPDATE `tbl_address` SET `profileimg`='$c_image' WHERE `login_id`='$logid'";
+
+    $run_update = mysqli_query($conn, $c_update);
+
+    if ($run_update) {
+
+        echo "<script>alert('profile image updated')</script>";
+        echo "<script>window.open('userprofile.php','_self')</script>";
+    }
+}
+
+
+
+if (isset($_POST['removeimg'])) {
+    
+
+    $r_update = "UPDATE `tbl_address` SET `profileimg`='NILL' WHERE `login_id`='$logid'";
+
+    $rem_update = mysqli_query($conn, $r_update);
+
+    if ($rem_update) {
+
+        echo "<script>alert('profile image removed')</script>";
+        echo "<script>window.open('userprofile.php','_self')</script>";
+    }
+}
+
+
+
+
+// if (isset($_POST["btnpro"])) {
+//     $profileimg = $_FILES["profileimg"]["name"];
+//     echo $profileimg;
+//     exit;
+//     move_uploaded_file($_FILES["profileimg"]["tmp_name"], "images/" . $_FILES["profileimg"]["name"]);
+
+
+
+//     $user_profile = "UPDATE `tbl_address` SET `profileimg`='$profileimg' WHERE `login_id`='$logid'";
+//     $user_profile_rslt = $conn->query($user_profile);
+
+//     echo '<script> alert ("profile image updated");</script>';
+//     echo '<script>window.location.href="userprofile.php";</script>';
+// }
+
 if (isset($_POST['btnname'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -31,7 +83,7 @@ if (isset($_POST['btnname'])) {
 }
 if (isset($_POST['btnph'])) {
     $phone = $_POST['phone'];
-    $email = $_POST['email'];
+
 
 
 

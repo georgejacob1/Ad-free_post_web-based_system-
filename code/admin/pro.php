@@ -152,7 +152,7 @@ include '../db_con.php';
                                         <?php
 
 
-                                        $view = "SELECT a.*, b.*,c.* from tbl_product a INNER JOIN tbl_login b INNER JOIN tbl_users c ON a.login_id=b.login_id and c.login_id=b.login_id";
+                                        $view = "SELECT a.*, b.*,c.* from tbl_product a INNER JOIN tbl_login b INNER JOIN tbl_users c ON a.login_id=b.login_id and c.login_id=b.login_id Where a.delete_status='1'";
                                         $query_run = mysqli_query($conn, $view);
                                         $i = 1;
                                         while ($prod = mysqli_fetch_array($query_run)) {

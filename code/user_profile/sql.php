@@ -10,15 +10,18 @@ if (isset($_POST["btnsubmit"])) {
   $sid = $_POST['sid'];
   $des = $_POST['des'];
   $photo = $_FILES["photo"]["name"];
-
+  $photo2 = $_FILES["photo2"]["name"];
+  $photo3 = $_FILES["photo3"]["name"];
   $price = $_POST['price'];
   $year = $_POST['year'];
 
 
 
   move_uploaded_file($_FILES["photo"]["tmp_name"], "images/" . $_FILES["photo"]["name"]);
+  move_uploaded_file($_FILES["photo2"]["tmp_name"], "images/" . $_FILES["photo2"]["name"]);
+  move_uploaded_file($_FILES["photo3"]["tmp_name"], "images/" . $_FILES["photo3"]["name"]);
 
-  $sql34 = mysqli_query($conn, "INSERT INTO `tbl_product`(`login_id`, `subcat_id`, `p_name`, `p_description`, `p_image`, `price`, `year`,`delete_status`) VALUES('$logid','$sid','$name','$des','$photo','$price','$year','1')");
+  $sql34 = mysqli_query($conn, "INSERT INTO `tbl_product`(`login_id`, `subcat_id`, `p_name`, `p_description`, `p_image`,`p_image2`,`p_image3`, `price`, `year`,`delete_status`) VALUES('$logid','$sid','$name','$des','$photo','$photo2','$photo3','$price','$year','1')");
 
 
 
@@ -82,4 +85,91 @@ if (isset($_POST['update_sub'])) {
   $query = "UPDATE `tbl_product` SET `p_name`='$name',`p_description`='$des',`price`='$price' WHERE `product_id`='$pid'";
   $query_run = mysqli_query($conn, $query);
 }
+
+
+
+
+//image checking
+
+if (isset($_FILES['file']['name'])) {
+
+  /* Getting file name */
+  $filename = $_FILES['file']['name'];
+
+  /* Location */
+  $location = "images/" . $filename;
+  $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
+  $imageFileType = strtolower($imageFileType);
+
+  /* Valid extensions */
+  $valid_extensions = array("jpg", "jpeg", "png");
+
+  $response = 0;
+  /* Check file extension */
+  if (in_array(strtolower($imageFileType), $valid_extensions)) {
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+      // $response = $location;
+      // echo "<span style='color:red;'>".$response."</span>";
+      echo "<script>$('#addsub').prop('disabled',false);</script>";
+    }
+  } else {
+    echo "<span style='color:red;'>upload files with extension jpg,jpeg,png are allowed</span>";
+    echo "<script>$('#addsub').prop('disabled',true);</script>";
+  }
+}
+if (isset($_FILES['file2']['name'])) {
+
+  /* Getting file name */
+  $filename = $_FILES['file2']['name'];
+
+  /* Location */
+  $location = "images/" . $filename;
+  $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
+  $imageFileType = strtolower($imageFileType);
+
+  /* Valid extensions */
+  $valid_extensions = array("jpg", "jpeg", "png");
+
+  $response = 0;
+  /* Check file extension */
+  if (in_array(strtolower($imageFileType), $valid_extensions)) {
+    if (move_uploaded_file($_FILES['file2']['tmp_name'], $location)) {
+      // $response = $location;
+      // echo "<span style='color:red;'>".$response."</span>";
+      echo "<script>$('#addsub').prop('disabled',false);</script>";
+    }
+  } else {
+    echo "<span style='color:red;'>upload files with extension jpg,jpeg,png are allowed</span>";
+    echo "<script>$('#addsub').prop('disabled',true);</script>";
+  }
+}
+
+if (isset($_FILES['file3']['name'])) {
+
+  /* Getting file name */
+  $filename = $_FILES['file3']['name'];
+
+  /* Location */
+  $location = "images/" . $filename;
+  $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
+  $imageFileType = strtolower($imageFileType);
+
+  /* Valid extensions */
+  $valid_extensions = array("jpg", "jpeg", "png");
+
+  $response = 0;
+  /* Check file extension */
+  if (in_array(strtolower($imageFileType), $valid_extensions)) {
+    if (move_uploaded_file($_FILES['file3']['tmp_name'], $location)) {
+      // $response = $location;
+      // echo "<span style='color:red;'>".$response."</span>";
+      echo "<script>$('#addsub').prop('disabled',false);</script>";
+    }
+  } else {
+    echo "<span style='color:red;'>upload files with extension jpg,jpeg,png are allowed</span>";
+    echo "<script>$('#addsub').prop('disabled',true);</script>";
+  }
+}
+
 ?>
+

@@ -9,6 +9,7 @@ $logid = $_SESSION['login_id'];
 <html lang="en" dir="ltr">
 
 <head>
+
   <meta charset="UTF-8">
   <title>my-profile</title>
   <link rel="stylesheet" href="userstyle.css">
@@ -20,7 +21,71 @@ $logid = $_SESSION['login_id'];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+  <style>
+    .bg-secondary-soft {
+      background-color: rgba(208, 212, 217, 0.1) !important;
+    }
 
+    .rounded {
+      border-radius: 5px !important;
+    }
+
+    .py-5 {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .px-4 {
+      padding-right: 1.5rem !important;
+      padding-left: 1.5rem !important;
+    }
+
+    .file-upload .square {
+      height: 250px;
+      width: 250px;
+      margin: auto;
+      vertical-align: middle;
+      border: 1px solid #e5dfe4;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    .text-secondary {
+      --bs-text-opacity: 1;
+      color: rgba(208, 212, 217, 0.5) !important;
+    }
+
+    .btn-success-soft {
+      color: #28a745;
+      background-color: rgba(40, 167, 69, 0.1);
+    }
+
+    .btn-danger-soft {
+      color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.1);
+    }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #29292e;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #e5dfe4;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 5px;
+      -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+      transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    }
+  </style>
 </head>
 
 <body>
@@ -172,6 +237,43 @@ $logid = $_SESSION['login_id'];
       </div> -->
 
       <div class="card w-auto m-5 p-5">
+        <div class="modal fade" id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">MY Name</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button> -->
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+
+
+                <form id="" method="post" action="edadd.php" enctype="multipart/form-data">
+
+                  <div class="form-group">
+                    <label for="image">Product image</label>
+                    <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="profileimg" id="image" required onchange="return dvalidateimage2()">
+                    <span id="dim1" style='color:red;'></span>
+                  </div>
+
+                  <!-- <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div> -->
+
+              </div>
+              <div class="modal-footer">
+                <button type="submit" name="btnpro" id="pisubmit" class="btn btn-info">Submit</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -314,7 +416,67 @@ $logid = $_SESSION['login_id'];
           </div>
         </div>
 
+        <div class="container-fluid">
 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>profile photo</h4>
+                  <!-- <button type="button" class="btn btn-success editprofile" style="float: right; margin-top: -3%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fa fa-edit"></i>&nbsp; Edit
+                  </button> -->
+                </div>
+                <div class="card-body">
+
+                  <div class="container">
+                    <div class="col-xxl-4">
+
+                      <div class="row g-3">
+
+                        <div class="text-center">
+                          <!-- Image upload -->
+                          <?php
+                          if ($raw1['profileimg'] == "NILL") {
+                          ?>
+                            <div class="square position-relative display-2 mb-3">
+                              <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" style="width:250px;height:250px" alt="">
+                            </div>
+                            <!-- Button -->
+                            <input type="file" id="customFile" name="file" hidden="">
+                            <button type="button" class="btn btn-success-soft" data-bs-toggle="modal" data-bs-target="#exampleModalp">Upload</button>
+                            <!-- <button type="button" class="btn btn-danger-soft">Remove</button> -->
+                          <?php
+                          } else { ?>
+                            <div class="square position-relative display-2 mb-3">
+                              <img class="img-account-profile rounded-circle mb-2" src="images/<?php echo $raw1['profileimg']; ?>" style="width:250px;height:250px" alt="">
+                            </div>
+                            <!-- Button -->
+                            <div class="btn-grp">
+                              <input type="file" id="customFile" name="file" hidden="">
+                              <button type="button" class="btn btn-success-soft" for="customFile" data-bs-toggle="modal" data-bs-target="#exampleModalp">Upload</button>
+                              <form action="edadd.php" method="post">
+                                <button type="submit" name="removeimg" class="btn btn-danger-soft">Remove</button>
+                              </form>
+                            </div>
+
+                          <?php
+                          } ?>
+                          <!-- Content -->
+                          <!-- <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p> -->
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </br>
 
         <div class="container-fluid">
           <div class="row">
@@ -331,10 +493,10 @@ $logid = $_SESSION['login_id'];
                   <div class="container">
                     <div class="row g-2">
                       <div class="col-6">
-                        <div class="p-3">First Name: <?php echo $raw['user_fname']; ?></div>
+                        <div class="p-3">First Name: <b><?php echo $raw['user_fname']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">Last Name: <?php echo $raw['user_lname']; ?></div>
+                        <div class="p-3">Last Name: <b><?php echo $raw['user_lname']; ?></b></div>
                       </div>
                     </div>
                   </div>
@@ -364,10 +526,10 @@ $logid = $_SESSION['login_id'];
                   <div class="container">
                     <div class="row g-2">
                       <div class="col-6">
-                        <div class="p-3">Email: <?php echo $raw['email']; ?></div>
+                        <div class="p-3">Email: <b><?php echo $raw['email']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">Phone no: <?php echo $raw['user_phone']; ?></div>
+                        <div class="p-3">Phone no: <b><?php echo $raw['user_phone']; ?></b></div>
                       </div>
                     </div>
                   </div>
@@ -398,19 +560,19 @@ $logid = $_SESSION['login_id'];
                   <div class="container">
                     <div class="row g-2">
                       <div class="col-6">
-                        <div class="p-3">House no/apartment name: <?php echo $raw1['house']; ?></div>
+                        <div class="p-3">House no/apartment name: <b><?php echo $raw1['house']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">street: <?php echo $raw1['street']; ?></div>
+                        <div class="p-3">street: <b><?php echo $raw1['street']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">City/Town: <?php echo $raw1['city']; ?></div>
+                        <div class="p-3">City/Town: <b><?php echo $raw1['city']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">state: <?php echo $raw1['state']; ?></div>
+                        <div class="p-3">state: <b><?php echo $raw1['state']; ?></b></div>
                       </div>
                       <div class="col-6">
-                        <div class="p-3">pincode: <?php echo $raw1['pincode']; ?></div>
+                        <div class="p-3">pincode: <b><?php echo $raw1['pincode']; ?></b></div>
                       </div>
                     </div>
                   </div>
