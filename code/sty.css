@@ -19,7 +19,7 @@
   border: none;
   text-decoration: none;
   text-transform: capitalize;
-  transition: all 0.2s linear;
+  transition: all 0.0s linear;
   transition: width none;
 }
 @media (min-width: 1025px) {

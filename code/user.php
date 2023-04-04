@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- custom css file link  -->
     <link rel="stylesheet" href="sty.css">
 </head>
@@ -184,109 +184,74 @@ if (isset($_POST['submit'])) {
         <a href="#blogs" class="fas fa-blog"></a>
     </nav>
 
-    <!-- login form  -->
-
-    <!-- <div class="login-form-container">
-
-    <div id="close-login-btn" class="fas fa-times"></div>
-
-    <form action="">
-        <h3>sign in</h3>
-        <a href="#"><center><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a>
-        </center>  <span>username</span>
-        <input type="email" name="" class="box" placeholder="enter your email" id="">
-        <span>password</span>
-        <input type="password" name="" class="box" placeholder="enter your password" id="">
-        <div class="checkbox">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me"> remember me</label>
-        </div>
-        <input type="submit" value="sign in" class="btn">
-        <p>forget password ? <a href="#">click here</a></p>
-        <p>don't have an account ? <a href="reg.php">create one</a></p>
-    </form>
-
-</div> -->
-
-    <!-- home section starts  -->
-
-    <!-- <section class="home" id="home">
-
-        <div class="row">
-
-            <div class="content">
-                <h3>upto 75% off</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deserunt nostrum accusamus. Nam alias sit necessitatibus, aliquid ex minima at!</p>
-                <a href="#" class="btn">shop now</a>
-            </div>
-
-            <div class="swiper books-slider">
-                <div class="swiper-wrapper">
-                    <a href="#" class="swiper-slide"><img src="image/book-1.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="image/book-2.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="image/book-3.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="image/book-4.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="image/book-5.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="image/book-6.png" alt=""></a>
-                </div>
-                <img src="image/stand.png" class="stand" alt="">
-            </div>
-
-        </div>
-
-    </section> -->
-
-    <!-- home section ense  -->
-
-    <!-- icons section starts  -->
-
-    <!-- <section class="icons-container">
-
-        <div class="icons">
-            <i class="fas fa-shipping-fast"></i>
-            <div class="content">
-                <h3>free shipping</h3>
-                <p>order over $100</p>
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-lock"></i>
-            <div class="content">
-                <h3>secure payment</h3>
-                <p>100 secure payment</p>
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-redo-alt"></i>
-            <div class="content">
-                <h3>easy returns</h3>
-                <p>10 days returns</p>
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-headset"></i>
-            <div class="content">
-                <h3>24/7 support</h3>
-                <p>call us anytime</p>
-            </div>
-        </div>
-
-    </section> -->
-
     <!-- icons section ends -->
 
     <!-- featured section starts  -->
 
+    <!-- <section class="featured" id="featured">
+
+        <h1 class="heading"> <span>Recent ads</span> </h1>
+
+        <div class="swiper featured-slider">
+
+            <div class="swiper-wrapper">
+                <?php
+                $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1'";
+                $v_check = mysqli_query($conn, $v);
+                while ($vrow = mysqli_fetch_array($v_check)) {
+                ?>
+
+                    <div class="swiper-slide box">
+
+                        <div class="icons">
+
+                            <form action="userview.php" method="post">
+                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:25px"></button>
+                            </form>
+                        </div>
+                        <div class="image">
+                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px">
+                        </div>
+                        <div class="content">
+                            <h3><?php echo $vrow['p_name']; ?></h3>
+                            <div class="price" style="font-size: 15px;">Contact info:- <?php echo $vrow['user_phone']; ?> </div>
+                            <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
+                            <form method="post" action="">
+
+                                <input type="hidden" name="pname" value="<?php echo $vrow['p_name']; ?>">
+                                <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
+                                <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
+                                <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
+                                <input type="hidden" name="user" value="<?php echo $vrow['user_fname']; ?>">
+                                <input type="hidden" name="phone" value="<?php echo $vrow['user_phone']; ?>">
+                                <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
+
+                                <button class="btn" name="submit">add to wishlist</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+
+
+
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+
+    </section> -->
     <section class="featured" id="featured">
         <h1 class="heading"><span>Recent ads</span></h1>
 
         <div class="swiper featured-slider">
             <div class="swiper-wrapper">
                 <?php
-                echo $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1' where  and a.login_id!='$loginid1'";
+                $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1' where  a.login_id!='$loginid1'";
                 $v_check = mysqli_query($conn, $v);
                 while ($vrow = mysqli_fetch_array($v_check)) {
                 ?>
@@ -314,7 +279,7 @@ if (isset($_POST['submit'])) {
                                 if ($w == 0) { ?>
                                     <button style="width: 30px;height:10px;color:#fff" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\wishlist.png" alt="" style="width: 50px;height:50px;"></button>
                                 <?php } else { ?>
-                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" onclick="window.location.href='cart.php'"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
+                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
                                 <?php  } ?>
                             </form>
                         </div>
@@ -325,15 +290,9 @@ if (isset($_POST['submit'])) {
                             <h3><?php echo $vrow['p_name']; ?></h3>
                             <div class="price" style="font-size: 15px;">Contact info:- <?php echo $vrow['user_phone']; ?> </div>
                             <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
-
-
                             <form action="userview.php" method="post">
                                 <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
                                 <button class="btn">View </button>
-
-
-
-
                             </form>
                         </div>
                     </div>
@@ -351,217 +310,6 @@ if (isset($_POST['submit'])) {
         </div>
     </section>
 
-    <!-- featured section ends -->
-
-    <!-- newsletter section starts -->
-
-    <!-- <section class="newsletter">
-
-        <form action="">
-            <h3>subscribe for latest updates</h3>
-            <input type="email" name="" placeholder="enter your email" id="" class="box">
-            <input type="submit" value="subscribe" class="btn">
-        </form>
-
-    </section> -->
-
-    <!-- newsletter section ends -->
-
-    <!-- arrivals section starts  -->
-
-    <!-- <section class="arrivals" id="arrivals">
-
-    <h1 class="heading"> <span>new arrivals</span> </h1>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-1.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-3.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-4.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-5.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-6.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-7.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-8.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-9.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-10.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-</section> -->
-
-    <!-- arrivals section ends -->
 
     <!-- deal section starts  -->
 
@@ -825,12 +573,27 @@ if (isset($_POST['submit'])) {
 
 
 
-
-
-
-
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <script>
+        $(document).on('click', '.addto', function(e) {
+            e.preventDefault();
+
+            var prod_id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "viewsql.php",
+                data: {
+                    'addtosubmit': true,
+                    'prod_id': prod_id
+                },
+                success: function(response) {
+                    // $('.description').load(' .description');
+                    window.location.reload();
+                    // alert(response);
+
+                }
+            });
+
+        });
         $(document).on('click', '.viewwish', function(e) {
             e.preventDefault();
 
@@ -854,6 +617,11 @@ if (isset($_POST['submit'])) {
 
         });
     </script>
+
+
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
     <!-- custom js file link  -->
     <script src="script.js"></script>
 

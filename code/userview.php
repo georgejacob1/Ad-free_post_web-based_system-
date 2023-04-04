@@ -275,17 +275,17 @@ if (isset($_POST['ressubmit'])) {
                     <ul class="featured-list">
                         <li>
                             <figure>
-                                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:400px;height:310px">
+                                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:470px;height:370px">
                             </figure>
                         </li>
                         <li>
                             <figure>
-                                <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="" style="width:400px;height:310px">
+                                <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="" style="width:470px;height:370px">
                             </figure>
                         </li>
                         <li>
                             <figure>
-                                <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="" style="width:400px;height:310px">
+                                <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="" style="width:470px;height:370px">
                             </figure>
                         </li>
                     </ul>
@@ -317,7 +317,7 @@ if (isset($_POST['ressubmit'])) {
                         <label for="image1">
                             <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="">
                             <span class="outer">
-                                <span class="inner" style="color: #fff;">Caption1</span>
+                                <span class="inner" style="color: #fff;">Image1</span>
                             </span>
                         </label>
                     </li>
@@ -325,7 +325,7 @@ if (isset($_POST['ressubmit'])) {
                         <label for="image2">
                             <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="">
                             <span class="outer">
-                                <span class="inner" style="color: #fff;">Caption2</span>
+                                <span class="inner" style="color: #fff;">Image2</span>
                             </span>
                         </label>
                     </li>
@@ -333,14 +333,12 @@ if (isset($_POST['ressubmit'])) {
                         <label for="image3">
                             <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="">
                             <span class="outer">
-                                <span class="inner" style="color: #fff;">Caption3</span>
+                                <span class="inner" style="color: #fff;">Image3</span>
                             </span>
                         </label>
                     </li>
                 </ul>
             </div>
-
-
             <!-- Product -->
             <section class="product">
                 <div class="company-name"><?php echo $vrow11['category'] ?></div>
@@ -363,6 +361,7 @@ if (isset($_POST['ressubmit'])) {
                     <?php echo $urow['street']; ?>,<?php echo $urow['city']; ?><br>
                     <?php echo $urow['state']; ?>,<?php echo $urow['pincode']; ?><br>
                     <b>Contact info:-<?php echo $mrow['user_phone']; ?></b><br>
+                    <b>posted from:-<br><iframe src='https://www.google.com/maps?q=<?php echo $vrow["latitude"]; ?>, <?php echo $vrow["longitude"]; ?>&h1=es,z=14&output=embed' width="" height=""  ></iframe></b><br>
                     <?php
                     $pid = $vrow['product_id'];
                     $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
@@ -378,24 +377,12 @@ if (isset($_POST['ressubmit'])) {
                 $pid = $vrow['product_id'];
                 ?>
                 <div class="count-btn-group">
-                    <div class="btn-grp">
 
-                        <form action="chat/chat.php" method="get">
-                            <input type="hidden" value="<?php echo $vrow['login_id']; ?>" name="user_id">
+                    <form action="chat/chat.php" method="get">
+                        <input type="hidden" value="<?php echo $vrow['login_id']; ?>" name="user_id">
 
-                            <button class="btn chat" type="submit" name="chat" style="width: 510px;">chat</button>
-                        </form>
-
-
-                    </div>
-
-
-
-
-
-
-
-                    </a>
+                        <button class="btn chat" type="submit" name="chat" style="width: 500px;margin-right:10px">chat</button>
+                    </form>
 
 
                 </div>
@@ -452,7 +439,7 @@ if (isset($_POST['ressubmit'])) {
                                 if ($w == 0) { ?>
                                     <button style="width: 30px;height:10px;color:#fff" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\wishlist.png" alt="" style="width: 50px;height:50px;"></button>
                                 <?php } else { ?>
-                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" onclick="window.location.href='cart.php'"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
+                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
                                 <?php  } ?>
                             </form>
                         </div>
@@ -463,15 +450,9 @@ if (isset($_POST['ressubmit'])) {
                             <h3><?php echo $vrow['p_name']; ?></h3>
                             <div class="price" style="font-size: 15px;">Contact info:- <?php echo $vrow['user_phone']; ?> </div>
                             <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
-
-
                             <form action="userview.php" method="post">
                                 <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
                                 <button class="btn">View </button>
-
-
-
-
                             </form>
                         </div>
                     </div>
@@ -489,206 +470,7 @@ if (isset($_POST['ressubmit'])) {
         </div>
     </section>
 
-    <!-- featured section ends -->
 
-
-    <!-- arrivals section starts  -->
-
-    <!-- <section class="arrivals" id="arrivals">
-
-    <h1 class="heading"> <span>new arrivals</span> </h1>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-1.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-3.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-4.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-5.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-6.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-7.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-8.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-9.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-10.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-</section> -->
-
-    <!-- arrivals section ends -->
-
-    <!-- deal section starts  -->
 
     <section class="deal">
         <div class="content">

@@ -97,13 +97,19 @@ $logid = $_SESSION['login_id'];
       <li>
         <a href="#" class="active">
           <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Profile</span>
+          <span class="links_name">My profile</span>
         </a>
       </li>
       <li>
         <a href="ads.php">
           <i class='bx bx-box'></i>
           <span class="links_name">My ads</span>
+        </a>
+      </li>
+      <li>
+        <a href="bill.php" >
+          <i class='bx bx-coin-stack'></i>
+          <span class="links_name">invoice</span>
         </a>
       </li>
       <!-- <li>
@@ -383,12 +389,17 @@ $logid = $_SESSION['login_id'];
                     <span class="message text-danger" id="dmsh"></span>
                   </div>
                   <div class="form-group">
-                    <br><label for="des">street</label>
+                    <br><label for="des">Pincode</label>
+                    <input type="text" class="form-control" name="pin" id="pin" placeholder="Enter your pincode" required onkeyup="get_details()">
+                    <span class="message text-danger" id="dmsp"></span>
+                  </div>
+                  <div class="form-group">
+                    <br><label for="des">City</label>
                     <input type="text" class="form-control" name="street" id="street" placeholder="Enter your street" required onkeyup="return ckeck()">
                     <span class="message text-danger" id="dmss"></span>
                   </div>
                   <div class="form-group">
-                    <br><label for="des">City/Town</label>
+                    <br><label for="des">District</label>
                     <input type="text" class="form-control" name="city" id="city" placeholder="Enter your City/Town" required onkeyup="return ckeck()">
                     <span class="message text-danger" id="dmsc"></span>
                   </div>
@@ -397,11 +408,7 @@ $logid = $_SESSION['login_id'];
                     <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state" required pattern="[a-zA-Z]+" onkeyup="return ckeck()">
                     <span class="message text-danger" id="dmsst"></span>
                   </div>
-                  <div class="form-group">
-                    <br><label for="des">pincode</label>
-                    <input type="text" class="form-control" name="pin" id="pin" placeholder="Enter your pincode" required onkeyup="return ckeck()">
-                    <span class="message text-danger" id="dmsp"></span>
-                  </div>
+                 
                   <!-- <div class="form-group">
                   <label for="message-text" class="col-form-label">Message:</label>
                   <textarea class="form-control" id="message-text"></textarea>
@@ -588,6 +595,43 @@ $logid = $_SESSION['login_id'];
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
+
+
+    function get_details() {
+      var pincode = jQuery('#pin').val();
+      if (pincode == '') {
+        jQuery('#street').val('');
+
+        jQuery('#city').val('');
+        jQuery('#state').val('');
+      } else {
+        jQuery.ajax({
+          url: 'get.php',
+          type: 'post',
+          data: 'pincode=' + pincode,
+          success: function(data) {
+            if (data == 'no') {
+              // alert('Wrong Pincode');
+              jQuery('#dmsp').html('Invalid Pincode');
+              jQuery('#street').val('');
+              jQuery('#city').val('');
+              jQuery('#state').val('');
+            } else {
+              var getData = $.parseJSON(data);
+              jQuery('#street').val(getData.city);
+              jQuery('#dmsp').html('&nbsp');
+
+              jQuery('#city').val(getData.district);
+              jQuery('#state').val(getData.state);
+            }
+          }
+        });
+      }
+    }
+ 
+
+
+
     function ckeck() {
       var dph = document.getElementById("phone").value;
       var expr = /^[6-9]\d{9}$/;

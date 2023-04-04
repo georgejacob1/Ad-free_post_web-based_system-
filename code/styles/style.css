@@ -209,12 +209,12 @@
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center;
+    /* align-items: center; */
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 10rem;
-    padding: 9rem 5rem;
+    /* padding: 9rem 5rem; */
   }
   .lightbox {
     width: 100%;

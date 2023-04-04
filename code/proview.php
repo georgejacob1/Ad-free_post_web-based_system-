@@ -37,6 +37,7 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <link rel="stylesheet" href="./styles/style.css" />
   <!-- custom css file link  -->
   <link rel="stylesheet" href="sty.css" />
+  <link rel="stylesheet" href="image.css" />
 </head>
 
 <body>
@@ -111,118 +112,114 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <!-- home section starts  -->
 
   <section class="home" id="home">
-    <div class="container">
-      <!-- <header>
-              <div class="hamburger-logo-group">
-                <div class="hamburger">
-                  <div class="line"></div>
-                  <div class="line"></div>
-                  <div class="line"></div>
-                </div>
-      
-                <img src="./images/logo.svg" alt="logo icon" />
-      
-                <nav class="menu hidden">
-                  <div class="slide-menu">
-                    <img
-                      id="btnMenuClose"
-                      src="./images/icon-close.svg"
-                      alt="icon close"
-                    />
-      
-                    <ul>
-                      <li><a href="#">Collections</a></li>
-                      <li><a href="#">Men</a></li>
-                      <li><a href="#">Women</a></li>
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">Contact</a></li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
-      
-              <div class="cart-avatar-group">
-                <div class="btnCart">
-                  <img src="./images/icon-cart.svg" alt="cart icon" />
-                  <div class="cart-count hidden">3</div>
-                </div>
-      
-                <img
-                  class="avatar"
-                  src="./images/image-avatar.png"
-                  alt="image avatar"
-                />
-              </div>
-      
-              <div class="cart hidden">
-                <div class="cart-header">Cart</div>
-                <div class="products-in-cart"></div>
-                <div class="msg-empty">Your cart is empty.</div>
-                <div class="checkout hidden">Checkout</div>
-              </div>
-            </header> -->
 
-      <div class="contente">
-        <!-- Lightbox -->
-        <section class="lightbox">
-          <!-- <img class="product-hero" src="./images/image-product-1.jpg" alt="image product" /> -->
-          <!-- <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px"> -->
-          <img class="product-hero" src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="image product" />
-          <div class="previous arrow">
-            <img src="./images/icon-previous.svg" alt="icon previous" />
+    <div class="contente">
+      <input type="radio" id="image1" name="image" checked>
+      <input type="radio" id="image2" name="image">
+      <input type="radio" id="image3" name="image">
+      <!-- Lightbox -->
+      <div class="container">
+        <div class="featured-wrapper">
+          <ul class="featured-list">
+            <li>
+              <figure>
+                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:470px;height:370px">
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="" style="width:470px;height:370px">
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="" style="width:470px;height:370px">
+              </figure>
+            </li>
+          </ul>
+          <!-- <ul class="arrows">
+                                <li>
+                                    <label for="image1"></label>
+                                </li>
+                                <li>
+                                    <label for="image2"></label>
+                                </li>
+                                <li>
+                                    <label for="image3"></label>
+                                </li>
+                            </ul> -->
+          <ul class="dots">
+            <li>
+              <label for="image1"></label>
+            </li>
+            <li>
+              <label for="image2"></label>
+            </li>
+            <li>
+              <label for="image3"></label>
+            </li>
+          </ul>
+        </div>
+        <ul class="thumb-list">
+          <li>
+            <label for="image1">
+              <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="">
+              <span class="outer">
+                <span class="inner" style="color: #fff;">Caption1</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label for="image2">
+              <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="">
+              <span class="outer">
+                <span class="inner" style="color: #fff;">Caption2</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label for="image3">
+              <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="">
+              <span class="outer">
+                <span class="inner" style="color: #fff;">Caption3</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <!-- Product -->
+      <section class="product">
+        <div class="company-name"><?php echo $vrow11['category'] ?></div>
+        <div class="company-name"><?php echo $vrow1['subcat'] ?></div>
+        <div class="title"><?php echo $vrow['p_name']; ?></div>
+        <div class="description">
+          <?php echo $vrow['p_description']; ?>
+        </div>
+        <div class="price-wrapper">
+          <div class="group">
+            <div class="price">Rs.<?php echo $vrow['price']; ?></div>
+            <!-- <div class="discount">50%</div> -->
           </div>
-          <div class="next arrow">
-            <img src="./images/icon-next.svg" alt="icon next" />
-          </div>
-          <!-- <div class="thumb-gallery">
-            <div class="pic active">
-              <img src="./images/image-product-1-thumbnail.jpg" alt="thumb-1" />
-            </div>
-            <div class="pic">
-              <img src="./images/image-product-2-thumbnail.jpg" alt="thumb-2" />
-            </div>
-            <div class="pic">
-              <img src="./images/image-product-3-thumbnail.jpg" alt="thumb-3" />
-            </div>
-            <div class="pic">
-              <img src="./images/image-product-4-thumbnail.jpg" alt="thumb-4" />
-            </div>
-          </div> -->
-        </section>
+          <!-- <div class="old-price">$250.00</div> -->
+        </div>
 
-        <!-- Product -->
-        <section class="product">
-          <div class="company-name"><?php echo $vrow11['category'] ?></div>
-          <div class="company-name"><?php echo $vrow1['subcat'] ?></div>
-          <div class="title"><?php echo $vrow['p_name']; ?></div>
-          <div class="description">
-            <?php echo $vrow['p_description']; ?>
-          </div>
-          <div class="price-wrapper">
-            <div class="group">
-              <div class="price">Rs.<?php echo $vrow['price']; ?></div>
-              <!-- <div class="discount">50%</div> -->
+        <div class="count-btn-group">
+          <a href="login.php">
+            <div class="btn" style="width: 340px;">
+              <p>Add to wishlist</p>
             </div>
-            <!-- <div class="old-price">$250.00</div> -->
-          </div>
+          </a>
 
-          <div class="count-btn-group">
-            <a href="login.php">
-              <div class="btn" style="width: 340px;">
-                <p>Add to wishlist</p>
-              </div>
-            </a>
-
-            <!-- <div class="btn">
+          <!-- <div class="btn">
               <p>A</p>
             </div> -->
 
 
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
+    </div>
 
-      <!-- <div class="overlay hidden">
+    <!-- <div class="overlay hidden">
           <div class="btnClose">
             <img
               id="btnOverlayClose"

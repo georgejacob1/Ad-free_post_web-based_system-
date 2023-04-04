@@ -48,6 +48,12 @@ include '../db_con.php';
           <span class="links_name">Products</span>
         </a>
       </li>
+      <li>
+          <a href="payreport.php">
+            <i class='bx bx-coin-stack'></i>
+            <span class="links_name">Payment Report</span>
+          </a>
+        </li>
       <!-- <li>
           <a href="#">
             <i class='bx bx-list-ul' ></i>

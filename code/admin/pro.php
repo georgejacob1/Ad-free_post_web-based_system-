@@ -16,6 +16,7 @@ include '../db_con.php';
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -49,6 +50,12 @@ include '../db_con.php';
                     <span class="links_name">Products</span>
                 </a>
             </li>
+            <li>
+          <a href="payreport.php">
+            <i class='bx bx-coin-stack'></i>
+            <span class="links_name">Payment Report</span>
+          </a>
+        </li>
             <!-- <li>
           <a href="#">
             <i class='bx bx-list-ul' ></i>
@@ -133,61 +140,60 @@ include '../db_con.php';
                                 <h4>Products:</h4>
 
                             </div>
-                            <div class="card-body">
 
-                                <table id="myTable" class="table table-bordered table-striped">
-                                    <thead>
+                            <table id="myTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>Product image</th>
+                                        <th>Product name</th>
+                                        <th>User name</th>
+                                        <th>Contact no.</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>posted on</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+
+                                    $view = "SELECT a.*, b.*,c.* from tbl_product a INNER JOIN tbl_login b INNER JOIN tbl_users c ON a.login_id=b.login_id and c.login_id=b.login_id Where a.delete_status='1'";
+                                    $query_run = mysqli_query($conn, $view);
+                                    $i = 1;
+                                    while ($prod = mysqli_fetch_array($query_run)) {
+                                    ?>
                                         <tr>
-                                            <th>Sl.No.</th>
-                                            <th>Product image</th>
-                                            <th>Product name</th>
-                                            <th>User name</th>
-                                            <th>Contact no.</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Year</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                                            <td><?php echo $i; ?></td>
+                                            <td><img src="../user_profile/images/<?php echo $prod['p_image'] ?>" height="200px" width="200px" alt=""></td>
+                                            <td><?php echo $prod['p_name']; ?></td>
+                                            <td><?php echo $prod['user_fname'] . " " . $prod['user_lname']; ?></td>
+                                            <td><?php echo $prod['user_phone']; ?></td>
+                                            <td><?php echo $prod['p_description']; ?></td>
+                                            <td><?php echo $prod['price']; ?></td>
+                                            <td><?php echo $prod['date']; ?></td>
 
-
-                                        $view = "SELECT a.*, b.*,c.* from tbl_product a INNER JOIN tbl_login b INNER JOIN tbl_users c ON a.login_id=b.login_id and c.login_id=b.login_id Where a.delete_status='1'";
-                                        $query_run = mysqli_query($conn, $view);
-                                        $i = 1;
-                                        while ($prod = mysqli_fetch_array($query_run)) {
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $i; ?></td>
-                                                <td><img src="../user_profile/images/<?php echo $prod['p_image'] ?>" height="200px" width="200px" alt=""></td>
-                                                <td><?php echo $prod['p_name']; ?></td>
-                                                <td><?php echo $prod['user_fname'] . " " . $prod['user_lname']; ?></td>
-                                                <td><?php echo $prod['user_phone']; ?></td>
-                                                <td><?php echo $prod['p_description']; ?></td>
-                                                <td><?php echo $prod['price']; ?></td>
-                                                <td><?php echo $prod['year']; ?></td>
-
-                                                <!-- <td> -->
-                                                <!-- <a href="editcate.php">
+                                            <!-- <td> -->
+                                            <!-- <a href="editcate.php">
                               <input type="hidden" value="<?php echo $prod['cat_id']; ?>" name="cat_id">
                               <i class="fa fa-edit"></i>
                             </a>
                             &ensp;
                             <a href="#trash-o">
                               <i class="fa fa-trash"></i></a> -->
-                                                <!-- <button type="button" value="<?php echo $prod['cat_id']; ?>" class="editBtn fa fa-edit"></button> &nbsp;
+                                            <!-- <button type="button" value="<?php echo $prod['cat_id']; ?>" class="editBtn fa fa-edit"></button> &nbsp;
                                                     <button type="button" value="<?php echo $prod['cat_id']; ?>" class="deleteBtn fa fa-trash"></button> -->
-                                                <!-- </td> -->
-                                            </tr>
-                                        <?php
-                                            $i++;
-                                        }
-                                        ?>
+                                            <!-- </td> -->
+                                        </tr>
+                                    <?php
+                                        $i++;
+                                    }
+                                    ?>
 
-                                    </tbody>
-                                </table>
+                                </tbody>
+                            </table>
 
-                            </div>
+
                         </div>
                     </div>
                 </div>

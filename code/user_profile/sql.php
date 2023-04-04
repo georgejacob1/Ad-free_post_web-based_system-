@@ -4,16 +4,18 @@ include '../db_con.php';
 include 'userprofile-session.php';
 $logid = $_SESSION['login_id'];
 if (isset($_POST["btnsubmit"])) {
-
   $name = $_POST['name'];
 
   $sid = $_POST['sid'];
   $des = $_POST['des'];
+  $latitude = $_POST['latitude'];
+  $longitude = $_POST['longitude'];
   $photo = $_FILES["photo"]["name"];
   $photo2 = $_FILES["photo2"]["name"];
   $photo3 = $_FILES["photo3"]["name"];
   $price = $_POST['price'];
-  $year = $_POST['year'];
+  //$year = $_POST['year'];
+  $d = date('y-m-d');
 
 
 
@@ -21,17 +23,15 @@ if (isset($_POST["btnsubmit"])) {
   move_uploaded_file($_FILES["photo2"]["tmp_name"], "images/" . $_FILES["photo2"]["name"]);
   move_uploaded_file($_FILES["photo3"]["tmp_name"], "images/" . $_FILES["photo3"]["name"]);
 
-  $sql34 = mysqli_query($conn, "INSERT INTO `tbl_product`(`login_id`, `subcat_id`, `p_name`, `p_description`, `p_image`,`p_image2`,`p_image3`, `price`, `year`,`delete_status`) VALUES('$logid','$sid','$name','$des','$photo','$photo2','$photo3','$price','$year','1')");
-
-
-
-
-  // if ($sql34) {
-
-  //   echo "<script>alert('Product Details Registered Successfully!!');window.location='ads.php'</script>";
-  // } else {
-  //   echo "<script>alert('Error');window.location='ads.php'</script>";
-  // }
+  $loging_check = mysqli_query($conn, "SELECT * FROM `tbl_product` WHERE login_id = '$logid' and delete_status='1'");
+  $check_num = mysqli_num_rows($loging_check);
+  if ($check_num > 2) {
+    echo json_encode(array('status' => 'success', 'num_rows' => $check_num, 'name' => $name, 'sid' => $sid, 'des' => $des, 'photo' => $photo, 'photo2' => $photo2, 'photo3' => $photo3, 'price' => $price, 'date' => $d,'latitude'=>$latitude,'longitude'=>$longitude ));
+    // $sql34 = mysqli_query($conn, "INSERT INTO `tbl_product`(`login_id`, `subcat_id`, `p_name`, `p_description`, `p_image`,`p_image2`,`p_image3`, `price`, `year`,`delete_status`) VALUES('$logid','$sid','$name','$des','$photo','$photo2','$photo3','$price','$year','1')");
+  } else {
+    echo json_encode(array('status' => 'error'));
+    $sql34 = mysqli_query($conn, "INSERT INTO `tbl_product`(`login_id`, `subcat_id`, `p_name`, `p_description`,`latitude`,`longitude`, `p_image`,`p_image2`,`p_image3`, `price`, `date`,`delete_status`) VALUES('$logid','$sid','$name','$des','$latitude','$longitude','$photo','$photo2','$photo3','$price','$d','1')");
+  }
 } ?>
 <?php
 if (isset($_GET['ppid'])) {
@@ -172,4 +172,3 @@ if (isset($_FILES['file3']['name'])) {
 }
 
 ?>
-

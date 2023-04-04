@@ -43,7 +43,7 @@ input[type="radio"] {
 
 body {
   color: var(--white);
-  margin: 20px 0;
+  /* margin: 20px 0; */
   font-family: sans-serif;
 }
 
