@@ -784,7 +784,7 @@ if (isset($_POST['ressubmit'])) {
                     'prod_id': prod_id
                 },
                 success: function(response) {
-                    $('.').load(' .');
+                    $('.description').load(' .description');
                     window.location.reload();
                     // alert(response);
 
