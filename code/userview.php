@@ -362,6 +362,12 @@ if (isset($_POST['ressubmit'])) {
                     <?php echo $urow['state']; ?>,<?php echo $urow['pincode']; ?><br>
                     <b>Contact info:-<?php echo $mrow['user_phone']; ?></b><br>
                     <b>posted from:-<br><iframe src='https://www.google.com/maps?q=<?php echo $vrow["latitude"]; ?>, <?php echo $vrow["longitude"]; ?>&h1=es,z=14&output=embed' width="" height=""  ></iframe></b><br>
+
+                </div>
+                <?php
+                $pid = $vrow['product_id'];
+                ?>
+                <div class="count-btn-group">
                     <?php
                     $pid = $vrow['product_id'];
                     $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
@@ -372,16 +378,10 @@ if (isset($_POST['ressubmit'])) {
                     <?php } else { ?>
                         <button style="width: 50px;height:30px;color:#fff" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
                     <?php  } ?>
-                </div>
-                <?php
-                $pid = $vrow['product_id'];
-                ?>
-                <div class="count-btn-group">
-
                     <form action="chat/chat.php" method="get">
                         <input type="hidden" value="<?php echo $vrow['login_id']; ?>" name="user_id">
 
-                        <button class="btn chat" type="submit" name="chat" style="width: 500px;margin-right:10px">chat</button>
+                        <button class="btn chat" type="submit" name="chat" style="width: 550px;margin-right:10px">chat</button>
                     </form>
 
 

@@ -677,7 +677,7 @@ $logid = $_SESSION['login_id'];
                     // alert(response);
                     $('#exampleModal').modal('hide');
                     $('#saveStuden')[0].reset();
-                    $('#myTable').load(location.href + " #myTable");
+                    window.location.reload();
                   }
                 });
                 // The payment has been successful
