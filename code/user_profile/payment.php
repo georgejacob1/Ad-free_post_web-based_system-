@@ -14,7 +14,7 @@ $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 $price = $_POST['price'];
 date_default_timezone_set('Asia/Kolkata');
-$pr_date = date('Y/d/m h:i:s a', time());
+$pr_date = date('Y-m-d h:i:s a', time());
 // $email = $_SESSION['email'];
 $sql = "INSERT INTO `tbl_payment`(`login_id`, `trans_id`, `amount`, `transcation_date`) VALUES ('$logid', '$pymnt_id','100','$pr_date')";
 $res21 = mysqli_query($conn, $sql);

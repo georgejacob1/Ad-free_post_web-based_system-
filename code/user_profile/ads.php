@@ -244,11 +244,7 @@ $logid = $_SESSION['login_id'];
                   <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name" required onkeyup="return vali()" />
                   <span class="message text-danger" id="dmspro"></span>
                 </div>
-                <div class="form-group">
-                  <br><label for="des">Product Description</label>
-                  <textarea rows="4" cols="50" class="form-control" name="des" id="des" placeholder="Enter Product Description" required onkeyup="return vali()"></textarea>
-                  <span class="message text-danger" id="dmsd"></span>
-                </div>
+
                 <div class="form-group">
                   <!-- <br><label for="lat">Latitude</label> -->
                   <input type="hidden" class="form-control" name="latitude" id="latitude" required />
@@ -273,6 +269,11 @@ $logid = $_SESSION['login_id'];
                   <label for="image">Product image</label>
                   <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" name="photo3" id="image3" required onchange="return dvalidateimage2()">
                   <span id="dim3" style='color:red;'></span>
+                </div>
+                <div class="form-group">
+                  <br><label for="des">Product Description</label>
+                  <textarea rows="4" cols="50" class="form-control" name="des" id="des" placeholder="Enter Product Description" required onkeyup="return vali()"></textarea>
+                  <span class="message text-danger" id="dmsd"></span>
                 </div>
                 <div class="form-group">
                   <?php
@@ -454,6 +455,28 @@ $logid = $_SESSION['login_id'];
     } else
       sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
   }
+</script>
+<script>
+  const fileInput = document.getElementById('image');
+  const resultDiv = document.getElementById('des');
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'process_image.php');
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resultDiv.innerHTML = xhr.responseText;
+      } else {
+        console.error(xhr.statusText);
+      }
+    };
+    xhr.onerror = () => console.error(xhr.statusText);
+    xhr.send(formData);
+  });
 </script>
 <script>
   function dvalidateimage2() {

@@ -119,12 +119,12 @@
 
 .product .price-wrapper .group .discount {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #09746c;
-  background-color: #ffede0;
-  margin-left: 1.4rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  /* font-weight: 700; */
+  /* color: #09746c; */
+  /* background-color: #ffede0; */
+  /* margin-left: 1.4rem; */
+  /* padding: 0.5rem 1rem; */
+  /* border-radius: 0.5rem; */
 }
 
 .product .price-wrapper .old-price {
@@ -266,11 +266,11 @@
     padding: 3rem 0 3rem 3rem;
   }
   .product .title {
-    font-size: 4.4rem;
+    font-size: 3.4rem;
     margin-top: 1.8rem;
   }
   .product .description {
-    margin-top: 3.5rem;
+    margin-top: 1.5rem;
     font-size: 1.63rem;
   }
   .product .price-wrapper {
@@ -281,7 +281,7 @@
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    margin-top: 2.4rem;
+    margin-top: .4rem;
     gap: 0.8rem;
   }
   .product .count-btn-group {
@@ -295,7 +295,7 @@
     -ms-flex-pack: center;
     justify-content: center;
     gap: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: .5rem;
   }
   .product .count-btn-group .counter-wrapper {
     width: 62%;

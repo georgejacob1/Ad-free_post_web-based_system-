@@ -19,7 +19,7 @@
   border: none;
   text-decoration: none;
   text-transform: capitalize;
-  transition: all 0.0s linear;
+  transition: all 0s linear;
   transition: width none;
 }
 @media (min-width: 1025px) {
@@ -142,17 +142,20 @@ section {
   color: var(--green);
 }
 
-.ph{width:auto;display: flex;/* flex-direction: row; */}
+.ph {
+  width: auto;
+  display: flex; /* flex-direction: row; */
+}
 
 .header .header-1 .icons div,
 .header .header-1 .icons a {
   font-size: 2.5rem;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   color: var(--black);
   cursor: pointer;
 }
 .header .header-1 .icons img {
-  width:35px;
+  width: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -381,79 +384,6 @@ section {
   color: var(--light-color);
 }
 
-.featured .featured-slider .box {
-  margin: 2rem 0;
-  position: relative;
-  overflow: hidden;
-  border: var(--border);
-  text-align: center;
-}
-
-.featured .featured-slider .box:hover {
-  border: var(--border-hover);
-}
-
-.featured .featured-slider .box .image {
-  padding: 1rem;
-  background: linear-gradient(15deg, #eee 30%, #fff 30.1%);
-}
-
-.featured .featured-slider .box:hover .image {
-  transform: translateY(6rem);
-}
-
-.featured .featured-slider .box .image img {
-  height: 25rem;
-}
-
-.featured .featured-slider .box .icons {
-  border-bottom: var(--border-hover);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  z-index: 1;
-  transform: translateY(-105%);
-}
-
-.featured .featured-slider .box:hover .icons {
-  transform: translateY(0%);
-}
-
-.featured .featured-slider .box .icons a {
-  color: var(--black);
-  font-size: 2.2rem;
-  padding: 1.3rem 1.5rem;
-}
-
-.featured .featured-slider .box .icons a:hover {
-  background: var(--green);
-  color: #fff;
-}
-
-.featured .featured-slider .box .content {
-  background: #eee;
-  padding: 1.5rem;
-}
-
-.featured .featured-slider .box .content h3 {
-  font-size: 2rem;
-  color: var(--black);
-}
-
-.featured .featured-slider .box .content .price {
-  font-size: 2.2rem;
-  color: var(--black);
-  padding-top: 1rem;
-}
-
-.featured .featured-slider .box .content .price span {
-  font-size: 1.5rem;
-  color: var(--light-color);
-  text-decoration: line-through;
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   border: var(--border-hover);
@@ -470,7 +400,7 @@ section {
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  background: var(--black);
+  /* background: var(--black); */
   color: #fff;
 }
 

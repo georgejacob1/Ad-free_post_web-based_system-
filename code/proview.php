@@ -1,10 +1,20 @@
 <?php
 include 'db_con.php';
-$pd = $_POST['pd'];
+// if (error_reporting(0)) {
+//   header("location:index.php");
+// }
+$pd = $_GET['pd'];
+
 $v = "SELECT * FROM tbl_product where product_id='$pd'";
+
 $v_check = mysqli_query($conn, $v);
 $vrow = mysqli_fetch_array($v_check);
-
+if (mysqli_num_rows($v_check) == 0) {
+  // if the id doesn't exist, redirect to the 404 error page
+  header("location:404.php");
+  include("404.php"); // replace "404.php" with the actual name of your 404 error page
+  exit();
+}
 
 $s = $vrow['subcat_id'];
 $vs = "SELECT * FROM tbl_subcat where sub_id='$s'";
@@ -38,6 +48,197 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <!-- custom css file link  -->
   <link rel="stylesheet" href="sty.css" />
   <link rel="stylesheet" href="image.css" />
+  <script src="https://kit.fontawesome.com/6007aa3653.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --breakpoint-xs: 600px;
+      --breakpoint-sm: 768px;
+      --red: #e41919;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    body {
+      background: #f4f4f4;
+      font-family: sans-serif;
+    }
+
+    .mystyle-products {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: var(--breakpoint-xs)) {
+      .mystyle-products {
+        display: block;
+      }
+    }
+
+    .mystyle-products.slider-products .product1 {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    .mystyle-products .product1 {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      padding: 20px;
+      background: #fff;
+    }
+
+    @media (max-width: var(--breakpoint-sm)) {
+      .mystyle-products .product1 {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: var(--breakpoint-xs)) {
+      .mystyle-products .product1 {
+        width: auto;
+      }
+    }
+
+    .mystyle-products .product1:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      z-index: 7;
+    }
+
+    .mystyle-products .product1:hover .btnn-circle {
+      transform: translateY(0);
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .mystyle-products .product1 h3 {
+      font-size: 12px;
+      line-height: 20px;
+      margin-top: 10px;
+      height: 39px;
+      overflow: hidden;
+    }
+
+    @media (max-width: var(--breakpoint-xs)) {
+      .mystyle-products .product1 h3 {
+        height: auto;
+      }
+    }
+
+    .mystyle-products .product1>a {
+      position: relative;
+      display: block;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .mystyle-products .product1>a:hover {
+      text-decoration: none;
+    }
+
+    .mystyle-products .product1 .add_to_cart_button {
+      display: none;
+    }
+
+    .mystyle-products .product1 .attachment-shop_catalog {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .mystyle-products .product1 .btnn-circle {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      display: block;
+      padding: 0;
+      position: absolute;
+      top: 20%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 2;
+      color: #fff;
+      transform: translateY(-20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: color 0.5s 0.001s ease-out, background 0.3s 0.001s ease-out, visibility 0.5s 0.25s ease-out, opacity 0.5s 0.25s ease-out, transform 0.5s 0.25s ease-out;
+    }
+
+    .mystyle-products .product1 .price {
+      font-size: 14px;
+    }
+
+    .mystyle-products .product1 .price ins {
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .mystyle-products .product1 .price del {
+      color: #666;
+      font-size: 11px;
+      padding-right: 7px;
+      white-space: nowrap;
+    }
+
+    .mystyle-products .product1 .price .sale-tag {
+      color: red;
+      font-size: 12px;
+      padding-left: 7px;
+      font-weight: 700;
+    }
+
+    .mystyle-products .onsale {
+      z-index: 6;
+      position: absolute;
+      top: 15px;
+      left: -20px;
+      padding: 2px 10px;
+      background: var(--red);
+      color: #fff;
+      box-shadow: -1px 2px 3px rgba(0, 0, 0, 0.3);
+      border-radius: 0 5px 5px 0;
+      height: 25px;
+      line-height: 25px;
+      font-size: 0.9rem;
+      font-weight: normal;
+      padding-top: 0;
+      padding-bottom: 0;
+      min-height: 0;
+    }
+
+    .mystyle-products .onsale:before,
+    .mystyle-products .onsale:after {
+      content: "";
+      position: absolute;
+    }
+
+    .mystyle-products .onsale:before {
+      width: 7px;
+      height: 33px;
+      top: 0;
+      left: -6.5px;
+      padding: 0 0 7px;
+      background: inherit;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .mystyle-products .onsale:after {
+      width: 5px;
+      height: 5px;
+      bottom: -5px;
+      left: -4.5px;
+      border-radius: 5px 0 0 5px;
+      background: #800;
+    }
+  </style>
 </head>
 
 <body>
@@ -46,10 +247,10 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <header class="header">
     <div class="header-1">
       <a href="index.php"><img src="image/logo.png" class="logo" alt="" height="60px" width="60px" /></a>
-      <form action="" class="search-form">
-        <input type="search" name="" placeholder="search here..." id="search-box" />
-        <label for="search-box" class="fas fa-search"></label>
-      </form>
+      <!-- <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box" />
+                <label for="search-box" class="fas fa-search"></label>
+            </form> -->
 
       <div class="icons">
         <div id="search-btn" class="fas fa-search"></div>
@@ -85,29 +286,7 @@ $vrow11 = mysqli_fetch_array($v_check11);
     <a href="#blogs" class="fas fa-blog"></a>
   </nav>
 
-  <!-- login form  -->
 
-  <!-- <div class="login-form-container">
-
-    <div id="close-login-btn" class="fas fa-times"></div>
-
-    <form action="">
-        <h3>sign in</h3>
-        <a href="#"><center><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a>
-        </center>  <span>username</span>
-        <input type="email" name="" class="box" placeholder="enter your email" id="">
-        <span>password</span>
-        <input type="password" name="" class="box" placeholder="enter your password" id="">
-        <div class="checkbox">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me"> remember me</label>
-        </div>
-        <input type="submit" value="sign in" class="btn">
-        <p>forget password ? <a href="#">click here</a></p>
-        <p>don't have an account ? <a href="reg.php">create one</a></p>
-    </form>
-
-</div> -->
 
   <!-- home section starts  -->
 
@@ -165,7 +344,7 @@ $vrow11 = mysqli_fetch_array($v_check11);
             <label for="image1">
               <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="">
               <span class="outer">
-                <span class="inner" style="color: #fff;">Caption1</span>
+                <span class="inner" style="color: #fff;">Image1</span>
               </span>
             </label>
           </li>
@@ -173,7 +352,7 @@ $vrow11 = mysqli_fetch_array($v_check11);
             <label for="image2">
               <img src="user_profile/images/<?php echo $vrow['p_image2']; ?>" alt="">
               <span class="outer">
-                <span class="inner" style="color: #fff;">Caption2</span>
+                <span class="inner" style="color: #fff;">Image2</span>
               </span>
             </label>
           </li>
@@ -181,7 +360,7 @@ $vrow11 = mysqli_fetch_array($v_check11);
             <label for="image3">
               <img src="user_profile/images/<?php echo $vrow['p_image3']; ?>" alt="">
               <span class="outer">
-                <span class="inner" style="color: #fff;">Caption3</span>
+                <span class="inner" style="color: #fff;">Image3</span>
               </span>
             </label>
           </li>
@@ -197,16 +376,18 @@ $vrow11 = mysqli_fetch_array($v_check11);
         </div>
         <div class="price-wrapper">
           <div class="group">
-            <div class="price">Rs.<?php echo $vrow['price']; ?></div>
-            <!-- <div class="discount">50%</div> -->
+            <div class="price" style="color: #000;">Rs.<?php echo $vrow['price']; ?></div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <div class="discount" style="color: #1d2025;background-color: #f3f3f3"><a href="login.php"><i class="fa-solid fa-heart fa-beat fa-2xl"></i>
+              </a></div>
           </div>
           <!-- <div class="old-price">$250.00</div> -->
+
         </div>
 
         <div class="count-btn-group">
           <a href="login.php">
-            <div class="btn" style="width: 340px;">
-              <p>Add to wishlist</p>
+            <div class="btn" style="width: 650px;">
+              <p>Chat</p>
             </div>
           </a>
 
@@ -238,36 +419,64 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <section class="featured" id="featured">
     <h1 class="heading"><span>Recent ads</span></h1>
 
+
     <div class="swiper featured-slider">
       <div class="swiper-wrapper">
         <?php
-        $v = "SELECT * FROM tbl_product where delete_status='1'";
+        $v = "SELECT * FROM tbl_product WHERE delete_status='1' ORDER BY product_id DESC LIMIT 8;";
         $v_check = mysqli_query($conn, $v);
         while ($vrow = mysqli_fetch_array($v_check)) {
         ?>
-
           <div class="swiper-slide box">
-            <div class="icons">
+            <div class="mystyle-products">
+              <li class="product1">
+                <a href="proview.php?pd=<?php echo $vrow['product_id'] ?>" name="pd">
+                  <?php
+                  $subcat_id = $vrow['subcat_id'];
+                  $sql = "SELECT tbl_categories.category FROM tbl_categories INNER JOIN tbl_subcat ON tbl_subcat.cat_id=tbl_categories.cat_id INNER JOIN tbl_product ON tbl_product.subcat_id=tbl_subcat.sub_id WHERE tbl_product.subcat_id='$subcat_id'";
+                  $res = mysqli_query($conn, $sql);
+                  $sales = mysqli_fetch_array($res);
+                  $sales_name = $sales['category'];
+                  ?>
+                  <span class="onsale"><?php echo $sales_name; ?></span>
+                  <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:290px;height:230px" />
+                  <h3><?php echo $vrow['p_name']; ?></h3>
+                  <span class="price">
+                    <!-- <del> <span class="amount">399.000 ₫</span> </del> -->
+                    <ins> <span class="amount">Rs.<?php echo $vrow['price']; ?></span> </ins>
+                    <!-- <span class="sale-tag sale-tag-square">-33%</span> -->
+                  </span>
+                </a>
 
-              <form action="proview.php" method="post">
-                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
-              </form>
-            </div>
+                <a href="login.php" style="margin-left: 260px"><i class="fa-solid fa-heart fa-beat fa-2xl"></i>
+                </a>
 
-            <div class="image">
-              <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px" />
-            </div>
-            <div class="content">
-              <h3><?php echo $vrow['p_name']; ?></h3>
-              <div class="price">Rs.<?php echo $vrow['price']; ?></div>
-              <a href="login.php" class="btn">add to wishlist</a>
+                <!-- <a href="tttt" class="btnn btnn-dark btnn-circle btnn-review" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="fa-solid fa-heart fa-beat fa-2xl"></i></a> -->
+              </li>
             </div>
           </div>
+
+
         <?php
         }
         ?>
+        <div class="swiper-slide box">
+          <div class="mystyle-products">
+            <li class="product1">
+              <a href="index.php">
 
+
+                <img src="image/pluz.png" alt="" style="width:290px;height:320px" />
+
+
+              </a>
+
+
+
+              <!-- <a href="tttt" class="btnn btnn-dark btnn-circle btnn-review" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="fa-solid fa-heart fa-beat fa-2xl"></i></a> -->
+            </li>
+          </div>
+        </div>
 
       </div>
       <div class="swiper-button-next"></div>
@@ -281,197 +490,8 @@ $vrow11 = mysqli_fetch_array($v_check11);
 
   <!-- arrivals section starts  -->
 
-  <!-- <section class="arrivals" id="arrivals">
 
-    <h1 class="heading"> <span>new arrivals</span> </h1>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-1.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-3.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-4.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-5.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="swiper arrivals-slider">
-
-        <div class="swiper-wrapper">
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-6.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-7.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-8.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-9.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-10.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-</section> -->
+  </section> -->
 
   <!-- arrivals section ends -->
 
@@ -611,83 +631,6 @@ $vrow11 = mysqli_fetch_array($v_check11);
 
   <!-- blogs section starts  -->
 
-  <!-- <section class="blogs" id="blogs">
-    <h1 class="heading"><span>our blogs</span></h1>
-
-    <div class="swiper blogs-slider">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide box">
-          <div class="image">
-            <img src="image/blog-1.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h3>blog title goes here</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-              odio.
-            </p>
-            <a href="#" class="btn">read more</a>
-          </div>
-        </div>
-
-        <div class="swiper-slide box">
-          <div class="image">
-            <img src="image/blog-2.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h3>blog title goes here</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-              odio.
-            </p>
-            <a href="#" class="btn">read more</a>
-          </div>
-        </div>
-
-        <div class="swiper-slide box">
-          <div class="image">
-            <img src="image/blog-3.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h3>blog title goes here</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-              odio.
-            </p>
-            <a href="#" class="btn">read more</a>
-          </div>
-        </div>
-
-        <div class="swiper-slide box">
-          <div class="image">
-            <img src="image/blog-4.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h3>blog title goes here</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-              odio.
-            </p>
-            <a href="#" class="btn">read more</a>
-          </div>
-        </div>
-
-        <div class="swiper-slide box">
-          <div class="image">
-            <img src="image/blog-5.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h3>blog title goes here</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-              odio.
-            </p>
-            <a href="#" class="btn">read more</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <!-- blogs section ends -->
 
@@ -752,7 +695,11 @@ $vrow11 = mysqli_fetch_array($v_check11);
   <!-- <div class="loader-container">
     <img src="image/loader-img.gif" alt="">
 </div> -->
-
+  <script>
+    $('#myCarousel').carousel({
+      interval: 4000
+    });
+  </script>
   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
   <!-- custom js file link  -->

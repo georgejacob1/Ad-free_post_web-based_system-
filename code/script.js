@@ -65,7 +65,7 @@ var swiper = new Swiper(".books-slider", {
 var swiper = new Swiper(".featured-slider", {
   spaceBetween: 10,
   loop: true,
-  centeredSlides: true,
+  // centeredSlides: true,
   autoplay: {
     delay: 9500,
     disableOnInteraction: false,

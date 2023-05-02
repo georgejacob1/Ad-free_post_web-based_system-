@@ -12,7 +12,7 @@ if ($_SESSION['email']) {
 
 
 $loginid1 = $row['login_id'];
-$pd = $_POST['pd'];
+$pd = $_GET['pd'];
 if (!isset($pd)) {
     header('location: user.php');
 }
@@ -31,10 +31,20 @@ $urow = mysqli_fetch_array($u_check);
 
 
 
+$pro_img = "SELECT * FROM tbl_address where login_id='$loginid1'";
+$pro_img_con = mysqli_query($conn, $pro_img);
+$pro_img_fech = mysqli_fetch_array($pro_img_con);
+
 $s = $vrow['subcat_id'];
 $vs = "SELECT * FROM tbl_subcat where sub_id='$s'";
 $v_check1 = mysqli_query($conn, $vs);
 $vrow1 = mysqli_fetch_array($v_check1);
+if (mysqli_num_rows($v_check1) == 0) {
+    // if the id doesn't exist, redirect to the 404 error page
+    header("location:404.php");
+    include("404.php"); // replace "404.php" with the actual name of your 404 error page
+    exit();
+}
 
 $c = $vrow1['cat_id'];
 
@@ -191,6 +201,379 @@ if (isset($_POST['ressubmit'])) {
             top: -15px;
             font-size: 11px;
         }
+
+
+
+
+
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #231A3B;
+        }
+
+        .site {
+            padding-top: 15px;
+        }
+
+        /* The parent has the "display: grid;" property and it defines the template areas */
+        .profile-card {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 210px 1fr;
+            grid-template-areas:
+
+                "pc-user pc-user pc-user pc-user-buttons";
+            min-width: 480px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 50px rgba(63, 57, 71, .15);
+        }
+
+
+        /* We define "grid-area" names for the direct child of the grid parent */
+
+
+
+        /* Direct child of the grid parent. Again we define the name of the "grid-area" porperty */
+        .pc-user {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-area: pc-user;
+        }
+
+        .pc-user-image {
+            padding: 18px 26px 18px 18px;
+            position: relative;
+        }
+
+
+
+        .pc-user-image img {
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .pc-user-info {
+            padding: 20px 20px 20px 0;
+        }
+
+        .pc-user-info>h3 {
+            font-size: 24px;
+            line-height: 1.3em;
+            margin-bottom: 6px;
+        }
+
+        .pc-user-info>h3 a {
+            color: #1d2025;
+            text-decoration: none;
+            transition: color .3s ease-in-out;
+        }
+
+        .pc-user-info>h3 a:hover {
+            color: #432F7A;
+        }
+
+        .pc-user-title {
+            margin-bottom: 3px;
+            color: #1d2025;
+            font-size: medium;
+        }
+
+        .pc-user-location {
+            margin-bottom: 20px;
+            color: #1d2025;
+            font-size: medium;
+        }
+
+        .pc-user-location svg {
+            width: 9px;
+            margin-right: 5px;
+            opacity: 0.4;
+        }
+
+        .pc-social {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .pc-social li+li {
+            margin-left: 15px;
+        }
+
+        .pc-social li svg {
+            max-width: 22px;
+            position: relative;
+            opacity: 0.5;
+            transition: opacity .2s ease-in-out;
+        }
+
+        .pc-social li a:hover svg {
+            opacity: 1;
+        }
+
+        /* Again >> direct child of the grid parent. We define the "grid-area" name */
+        .pc-user-buttons {
+            grid-area: pc-user-buttons;
+            padding: 18px;
+        }
+
+        .pc-user-buttons .pc-btn {
+            display: block;
+            padding: 6px 40px;
+            padding-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid #E5DFEF;
+            color: #231A3B;
+            transition: background .2s ease-in-out;
+        }
+
+        .pc-user-buttons .pc-btn:hover {
+            background: #E5DFEF;
+        }
+
+        .pc-user-buttons .pc-btn.accent {
+            margin-bottom: 10px;
+            border-color: #4F3FF1;
+            background: #4F3FF1;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(80, 60, 240, 0.2);
+        }
+
+        .pc-user-buttons .pc-btn.accent:hover {
+            background: #483AD7;
+        }
+
+        .pc-user-buttons .pc-btn+.pc-btn {
+            margin-top: 12px;
+        }
+
+        /* Responsive styling */
+        @media only screen and (max-width: 1024px) {
+            .site {
+                padding: 60px;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .site {
+                padding: 25px;
+            }
+
+            /* Here we define new columns and rows template. Then we rearrange the "grid-area" to match our needs. */
+            .profile-card {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(auto, 4);
+                grid-template-areas:
+
+                    "pc-user pc-user"
+                    "pc-user-buttons pc-user-buttons"
+            }
+
+
+        }
+
+        :root {
+            --breakpoint-xs: 600px;
+            --breakpoint-sm: 768px;
+            --red: #e41919;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        body {
+            background: #f4f4f4;
+            font-family: sans-serif;
+        }
+
+        .mystyle-products {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: var(--breakpoint-xs)) {
+            .mystyle-products {
+                display: block;
+            }
+        }
+
+        .mystyle-products.slider-products .product1 {
+            width: auto;
+            margin-bottom: 0;
+        }
+
+        .mystyle-products .product1 {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+            padding: 20px;
+            background: #fff;
+        }
+
+        @media (max-width: var(--breakpoint-sm)) {
+            .mystyle-products .product1 {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: var(--breakpoint-xs)) {
+            .mystyle-products .product1 {
+                width: auto;
+            }
+        }
+
+        .mystyle-products .product1:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 7;
+        }
+
+        .mystyle-products .product1:hover .btnn-circle {
+            transform: translateY(0);
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mystyle-products .product1 h3 {
+            font-size: 12px;
+            line-height: 20px;
+            margin-top: 10px;
+            height: 39px;
+            overflow: hidden;
+        }
+
+        @media (max-width: var(--breakpoint-xs)) {
+            .mystyle-products .product1 h3 {
+                height: auto;
+            }
+        }
+
+        .mystyle-products .product1>a {
+            position: relative;
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .mystyle-products .product1>a:hover {
+            text-decoration: none;
+        }
+
+        .mystyle-products .product1 .add_to_cart_button {
+            display: none;
+        }
+
+        .mystyle-products .product1 .attachment-shop_catalog {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mystyle-products .product1 .btnn-circle {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            display: block;
+            padding: 0;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 2;
+            color: #fff;
+            transform: translateY(-20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: color 0.5s 0.001s ease-out, background 0.3s 0.001s ease-out, visibility 0.5s 0.25s ease-out, opacity 0.5s 0.25s ease-out, transform 0.5s 0.25s ease-out;
+        }
+
+        .mystyle-products .product1 .price {
+            font-size: 14px;
+        }
+
+        .mystyle-products .product1 .price ins {
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .mystyle-products .product1 .price del {
+            color: #666;
+            font-size: 11px;
+            padding-right: 7px;
+            white-space: nowrap;
+        }
+
+        .mystyle-products .product1 .price .sale-tag {
+            color: red;
+            font-size: 12px;
+            padding-left: 7px;
+            font-weight: 700;
+        }
+
+        .mystyle-products .onsale {
+            z-index: 6;
+            position: absolute;
+            top: 15px;
+            left: -20px;
+            padding: 2px 10px;
+            background: var(--red);
+            color: #fff;
+            box-shadow: -1px 2px 3px rgba(0, 0, 0, 0.3);
+            border-radius: 0 5px 5px 0;
+            height: 25px;
+            line-height: 25px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            padding-top: 0;
+            padding-bottom: 0;
+            min-height: 0;
+        }
+
+        .mystyle-products .onsale:before,
+        .mystyle-products .onsale:after {
+            content: "";
+            position: absolute;
+        }
+
+        .mystyle-products .onsale:before {
+            width: 7px;
+            height: 33px;
+            top: 0;
+            left: -6.5px;
+            padding: 0 0 7px;
+            background: inherit;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .mystyle-products .onsale:after {
+            width: 5px;
+            height: 5px;
+            bottom: -5px;
+            left: -4.5px;
+            border-radius: 5px 0 0 5px;
+            background: #800;
+        }
     </style>
 </head>
 
@@ -205,31 +588,39 @@ if (isset($_POST['ressubmit'])) {
                 <label for="search-box" class="fas fa-search"></label>
             </form>
 
-            <div class="icons ph">
-                <div id="search-btn" class="fas fa-search"></div>
-                <form action="chat/users.php" method="post">
-                    <input type="hidden" value="<?php echo $row['login_id']; ?>" name="prouser">
+            <div class=".btn-group">
+                <div class="icons ph">
+                    <div id="search-btn" class="fas fa-search"></div>
+                    <form action="chat/users.php" method="post">
+                        <input type="hidden" value="<?php echo $row['login_id']; ?>" name="prouser">
 
-                    <button class='bx bx-comment bx-tada ' style="font-size: 25px; margin-top:15px" type="submit" name="chat"></button>
-                </form>
-                <div class="p-3">
+                        <button class='bx bx-comment bx-tada ' style="font-size: 25px; margin-top:15px;background-color: #fff" type="submit" name="chat"></button>
+                    </form>
+
+
 
 
                     <a href="cart.php" class="fas fa-heart mt-2" style=" margin-top:15px"></i></a>
 
-                </div>
-                <!-- <a href="#" class="fas fa-shopping-cart"></a> -->
-                <div class="dropdown ">
-                    <button class="dropbtn"> <?php echo $row['user_fname'] . " " . $row['user_lname']; ?> <i class='bx bx-chevron-down'></i></button>
-                    <div class="dropdown-content" style=" margin-left: 0px;">
-                        <a href="user_profile/userprofile.php"> <i class="fas fa-user"></i> My profile</a>
-                        <a href="logout.php"><i class='bx bx-log-out'></i> <span class="links_name">Log out</span></a>
-                        <!-- <a href="#">Link 2</a>
+
+                    <!-- <a href="#" class="fas fa-shopping-cart"></a> -->
+                    <div class="dropdown ">
+                        <button class="dropbtn"> <?php echo $row['user_fname'] . " " . $row['user_lname']; ?> <i class='bx bx-chevron-down'></i></button>
+                        <div class="dropdown-content" style=" margin-left: 0px;">
+                            <a href="user_profile/userprofile.php"> <i class="fas fa-user"></i> My profile</a>
+                            <a href="logout.php"><i class='bx bx-log-out'></i> <span class="links_name">Log out</span></a>
+                            <!-- <a href="#">Link 2</a>
                      <a href="#">Link 3</a> -->
+                        </div>
                     </div>
-                </div>
-                <div class="pl-3">
-                    <img src="image/pic-2.png" alt="" style=" margin-top:15px" />
+
+                    <?php
+                    if ($pro_img_fech['profileimg'] == "NILL") { ?>
+                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture" />
+                    <?php  } else { ?>
+                        <img src="user_profile/images/<?php echo $pro_img_fech['profileimg'] ?>" alt="" style=" margin-right:15px" />
+                    <?php } ?>
+
 
                 </div>
             </div>
@@ -348,48 +739,100 @@ if (isset($_POST['ressubmit'])) {
                     <?php echo $vrow['p_description']; ?>
                 </div>
                 <div class="price-wrapper">
+
                     <div class="group">
                         <div class="price" style="color: #1d2025;">Rs.<?php echo $vrow['price']; ?></div>
-                        <!-- <div class="discount">50%</div> -->
                     </div>
+
+                    <!-- <div class="discount">50%</div> -->
+
+
                     <!-- <div class="old-price">$250.00</div> -->
                 </div>
-                <div class="description">
-                    <b><?php echo $mrow['user_fname']; ?> <?php echo $mrow['user_lname']; ?></b><br>
-                    <b>Address</b><br>
-                    <?php echo $urow['house']; ?><br>
-                    <?php echo $urow['street']; ?>,<?php echo $urow['city']; ?><br>
-                    <?php echo $urow['state']; ?>,<?php echo $urow['pincode']; ?><br>
-                    <b>Contact info:-<?php echo $mrow['user_phone']; ?></b><br>
-                    <b>posted from:-<br><iframe src='https://www.google.com/maps?q=<?php echo $vrow["latitude"]; ?>, <?php echo $vrow["longitude"]; ?>&h1=es,z=14&output=embed' width="" height=""  ></iframe></b><br>
 
-                </div>
-                <?php
-                $pid = $vrow['product_id'];
-                ?>
                 <div class="count-btn-group">
-                    <?php
-                    $pid = $vrow['product_id'];
-                    $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
-                    $run11 = mysqli_query($conn, $sql11);
-                    $w = mysqli_num_rows($run11);
-                    if ($w == 0) { ?>
-                        <button style="width: 50px;height:30px;color:#fff" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\wishlist.png" alt="" style="width: 70px;height:50px;"></button>
-                    <?php } else { ?>
-                        <button style="width: 50px;height:30px;color:#fff" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
-                    <?php  } ?>
+
                     <form action="chat/chat.php" method="get">
                         <input type="hidden" value="<?php echo $vrow['login_id']; ?>" name="user_id">
 
-                        <button class="btn chat" type="submit" name="chat" style="width: 550px;margin-right:10px">chat</button>
+                        <button class="btn chat" type="submit" name="chat" style="width: 520px;margin-right:10px">chat</button>
                     </form>
+                    <div class="gr">
+                        <?php
+                        $pid = $vrow['product_id'];
+                        $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
+                        $run11 = mysqli_query($conn, $sql11);
+                        $w = mysqli_num_rows($run11);
+                        if ($w == 0) { ?>
+                            <button style="width: 50px;height:30px;color:#fff;background-color:#f4f4f4" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <i class="far fa-heart fa-lg" style="color: #2a2828;font-size: 35px;"></i></button>
+                        <?php } else { ?>
+                            <button style="width: 50px;height:30px;color:#fff;background-color: #f4f4f4" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <i class="fas fa-heart fa-lg" style="color: #e64141;font-size: 35px;"></i></button>
+                        <?php  } ?>
+                    </div>
+
 
 
                 </div>
-            </section>
+
+                <div class="site">
+                    <div class="profile-card">
+                        <div class="pc-user">
+                            <div class="pc-user-image">
+                                <?php
+                                if ($urow['profileimg'] == "NILL") { ?>
+                                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                                <?php  } else { ?>
+                                    <img src="user_profile/images/<?php echo $urow['profileimg'] ?>" alt="" />
+                                <?php } ?>
+                            </div>
+                            <div class="pc-user-info">
+                                <h3><?php echo $mrow['user_fname']; ?> <?php echo $mrow['user_lname']; ?></h3>
+                                <div class="pc-user-title">
+                                    <p><b>Address</b></p>
+                                </div>
+                                <div class="pc-user-location">
+                                    <p>
+
+                                        <?php echo $urow['house']; ?>,</br> <?php echo $urow['street']; ?>,<?php echo $urow['city']; ?>,<br>
+                                        <?php echo $urow['state']; ?>,<?php echo $urow['pincode']; ?><br>
+                                        <b>Contact info:-<?php echo $mrow['user_phone']; ?></b><br>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="pc-user-buttons">
+                            <!-- <form action="chat/chat.php" method="get">
+                                <input type="hidden" value="<?php echo $vrow['login_id']; ?>" name="user_id">
+                                <button class="pc-btn accent">chat</button>
+                            </form> -->
+                            <form action="profileads.php" method="POST">
+                                <?php
+                                $_SESSION['pro_id'] = $urow['login_id'];
+                                ?>
+                                <input type="hidden" value="<?php echo $urow['login_id']; ?>" name="pro_id">
+                                <button class="pc-btn " type="submit">View</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="description">
+
+                    <b> Posted from:-</b><br><iframe src='https://www.google.com/maps?q=<?php echo $vrow["latitude"]; ?>, <?php echo $vrow["longitude"]; ?>&h1=es,z=14&output=embed' width="250px" height=""  ></iframe><br>
+                </div>
         </div>
 
-        <!-- <div class="overlay hidden">
+
+
+
+
+
+
+
+    </section>
+    </div>
+
+    <!-- <div class="overlay hidden">
           <div class="btnClose">
             <img
               id="btnOverlayClose"
@@ -398,77 +841,95 @@ if (isset($_POST['ressubmit'])) {
             />
           </div>
         </div> -->
-        <!-- </div> -->
+    <!-- </div> -->
     </section>
 
     <!-- icons section ends -->
 
     <!-- featured section starts  -->
-
     <section class="featured" id="featured">
         <h1 class="heading"><span>Recent ads</span></h1>
+
 
         <div class="swiper featured-slider">
             <div class="swiper-wrapper">
                 <?php
-                $v = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1' where a.product_id!='$pd' and a.login_id!='$loginid1'";
-                $v_check = mysqli_query($conn, $v);
-                while ($vrow = mysqli_fetch_array($v_check)) {
+                $v1 = "SELECT a.*,b.* FROM tbl_product a inner join tbl_users b on a.login_id=b.login_id and  a.delete_status='1' where a.product_id!='$pd' and a.login_id!='$loginid1' ORDER BY product_id DESC LIMIT 8;";
+                $v_check1 = mysqli_query($conn, $v1);
+                while ($vrow1 = mysqli_fetch_array($v_check1)) {
                 ?>
-
                     <div class="swiper-slide box">
+                        <div class="mystyle-products">
+                            <li class="product1">
+                                <a href="userview.php?pd=<?php echo $vrow1['product_id'] ?>" name="pd">
+                                    <?php
+                                    $subcat_id = $vrow1['subcat_id'];
+                                    $sql1 = "SELECT tbl_categories.category FROM tbl_categories INNER JOIN tbl_subcat ON tbl_subcat.cat_id=tbl_categories.cat_id INNER JOIN tbl_product ON tbl_product.subcat_id=tbl_subcat.sub_id WHERE tbl_product.subcat_id='$subcat_id'";
+                                    $res1 = mysqli_query($conn, $sql1);
+                                    $sales1 = mysqli_fetch_array($res1);
+                                    $sales_name1 = $sales1['category'];
+                                    ?>
+                                    <span class="onsale"><?php echo $sales_name1; ?></span>
+                                    <img src="user_profile/images/<?php echo $vrow1['p_image']; ?>" alt="" style="width:290px;height:230px" />
+                                    <h3><?php echo $vrow1['p_name']; ?></h3>
+                                    <span class="price">
+                                        <!-- <del> <span class="amount">399.000 ₫</span> </del> -->
+                                        <ins> <span class="amount">Rs.<?php echo $vrow1['price']; ?></span> </ins><br>
+                                        <ins> <span class="amount"> Contact info:- <?php echo $vrow1['user_phone']; ?></span> </ins>
+                                        <!-- <span class="sale-tag sale-tag-square">-33%</span> -->
+                                    </span>
+                                </a>
+                                <div class="grp">
+                                    <form method="post" action="">
 
-                        <div class="icons">
 
+                                        <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
+                                        <?php
+                                        $pid = $vrow1['product_id'];
+                                        $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
+                                        $run11 = mysqli_query($conn, $sql11);
+                                        $w = mysqli_num_rows($run11);
+                                        if ($w == 0) { ?>
+                                            <button style="width: 40px;height:1px;color:#fff;margin-left: 240px;background-color: #fff" class=" aaa addto" type="submit" value="<?php echo $vrow1['product_id']; ?>"> <i class="far fa-heart fa-lg" style="color: #2a2828;"></i></button>
+                                        <?php } else { ?>
+                                            <button style="width: 40px;height:1px;color:#fff;margin-left: 240px;background-color: #fff" class=" aaa viewwish" type="submit" value="<?php echo $vrow1['product_id']; ?>"> <i class="fas fa-heart fa-lg" style="color: #e64141;"></i></button>
+                                        <?php  } ?>
+                                    </form>
+                                </div>
+                            </li>
 
-                            <form method="post" action="">
-
-                                <input type="hidden" name="pname" value="<?php echo $vrow['p_name']; ?>">
-                                <input type="hidden" name="desc" value="<?php echo $vrow['p_description']; ?>">
-                                <input type="hidden" name="img" value="<?php echo $vrow['p_image']; ?>">
-                                <input type="hidden" name="price" value="<?php echo $vrow['price']; ?>">
-                                <input type="hidden" name="user" value="<?php echo $mrow['user_fname']; ?>">
-                                <input type="hidden" name="phone" value="<?php echo $mrow['user_phone']; ?>">
-                                <input type="hidden" name="pid" value="<?php echo $vrow['product_id']; ?>">
-                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                                <?php
-                                $pid = $vrow['product_id'];
-                                $sql11 = "select * from tbl_cart where pid='$pid' and username='$email'";
-                                $run11 = mysqli_query($conn, $sql11);
-                                $w = mysqli_num_rows($run11);
-                                if ($w == 0) { ?>
-                                    <button style="width: 30px;height:10px;color:#fff" class="aaa addto" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\wishlist.png" alt="" style="width: 50px;height:50px;"></button>
-                                <?php } else { ?>
-                                    <button style="width: 30px;height:10px;color:#fff" class="aaa viewwish" type="submit" value="<?php echo $vrow['product_id']; ?>"> <img src="image\favourite.png" alt="" style="width: 70px;height:50px;"></button>
-                                <?php  } ?>
-                            </form>
-                        </div>
-                        <div class="image">
-                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px">
-                        </div>
-                        <div class="content">
-                            <h3><?php echo $vrow['p_name']; ?></h3>
-                            <div class="price" style="font-size: 15px;">Contact info:- <?php echo $vrow['user_phone']; ?> </div>
-                            <div class="price">Rs.<?php echo $vrow['price']; ?> </div>
-                            <form action="userview.php" method="post">
-                                <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                                <button class="btn">View </button>
-                            </form>
                         </div>
                     </div>
+
+
                 <?php
                 }
                 ?>
+                <div class="swiper-slide box">
+                    <div class="mystyle-products">
+                        <li class="product1">
+                            <a href="index.php">
 
 
+                                <img src="image/pluz.png" alt="" style="width:290px;height:340px" />
+
+
+                            </a>
+
+
+
+                            <!-- <a href="tttt" class="btnn btnn-dark btnn-circle btnn-review" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="fa-solid fa-heart fa-beat fa-2xl"></i></a> -->
+                        </li>
+                    </div>
+                </div>
 
             </div>
-
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
 
         </div>
     </section>
+
 
 
 
@@ -762,9 +1223,10 @@ if (isset($_POST['ressubmit'])) {
                     'prod_id': prod_id
                 },
                 success: function(response) {
-                    // $('.description').load(' .description');
+                    $('.gr').load(' .gr');
+
                     window.location.reload();
-                    alert(response);
+                    // alert(response);
 
                 }
             });
@@ -784,7 +1246,8 @@ if (isset($_POST['ressubmit'])) {
                     'prod_id': prod_id
                 },
                 success: function(response) {
-                    $('.description').load(' .description');
+                    $('.gr').load(' .gr');
+
                     window.location.reload();
                     // alert(response);
 
@@ -792,6 +1255,51 @@ if (isset($_POST['ressubmit'])) {
             });
 
         });
+
+
+
+        // $(document).on('click', '.addtoo', function(e) {
+        //     e.preventDefault();
+
+        //     var prod_id = $(this).val();
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "viewsql.php",
+        //         data: {
+        //             'addtosubmit': true,
+        //             'prod_id': prod_id
+        //         },
+        //         success: function(response) {
+        //             $('.grp').load(' .grp');
+        //             // window.location.reload();
+        //             // alert(response);
+
+        //         }
+        //     });
+
+        // });
+        // $(document).on('click', '.viewwishh', function(e) {
+        //     e.preventDefault();
+
+        //     var prod_id = $(this).val();
+        //     // alert(prod_id);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "viewsql.php",
+        //         data: {
+
+        //             'deleproduct': true,
+        //             'prod_id': prod_id
+        //         },
+        //         success: function(response) {
+        //             $('.grp').load(' .grp');
+        //             // window.location.reload();
+        //             // alert(response);
+
+        //         }
+        //     });
+
+        // });
     </script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
