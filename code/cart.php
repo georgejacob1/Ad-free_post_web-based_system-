@@ -102,98 +102,102 @@ if ($_SESSION['email']) {
         <div class="container h-50 py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
+                    <div class="card">
+
+                        <div class="table-responsive">
 
 
-                    <div class="table-responsive">
+                            <table class="table">
 
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-
-                                    <!-- <th scope="col">product</th> -->
-                                    <th scope="col" class="h5">Shopping Bag</th>
-                                    <th scope="col">price</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">remove</th>
-                                    <th scope="col">view</th>
-
-                                </tr>
-                            </thead>
-
-
-                            <tbody>
-                                <?php
-                                $sql = "select * from tbl_cart where username='$email'";
-                                $run = mysqli_query($conn, $sql);
-                                while ($ru = mysqli_fetch_assoc($run)) {
-                                    $productname = $ru['pname'];
-                                    $pid = $ru['id'];
-                                    $price = $ru['price'];
-                                    $description = $ru['description'];
-                                    // $description=$ru['description'];
-                                    $image = $ru['image'];
-                                    $contact = $ru['contact'];
-
-                                    //$discount=$ru['discount'];
-                                    // $a=($discount/100)*$price;
-                                    // $actualprice=$price-$a;
-
-                                ?>
+                                <thead>
 
                                     <tr>
+                                        <!-- <th scope="col">product</th> -->
+                                        <th scope="col" class="h5">Shopping Bag</th>
+                                        <th scope="col">price</th>
 
-                                        <th scope="row">
-
-                                            <div class="d-flex align-items-center">
-                                                <img src="user_profile/images/<?php echo $image; ?>" class="img-fluid rounded-3" style="width: 120px;" alt="Book">
-                                                <div class="flex-column ms-4">
-                                                    <p class="mb-2"><?php echo $productname; ?></p>
-                                                    <p class="mb-0"><?php echo $description; ?></p>
-                                                </div>
-                                            </div>
-
-                                        </th>
-
-                                        <td class="align-middle">
-                                            <div class="d-flex flex-row">
-
-
-                                                <p class="mb-0" style="font-weight: 500;"><?php echo $price; ?></p>
-
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <p class="mb-0" style="font-weight: 500;"><?php echo $contact; ?></p>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="deletefrom.php?product=<?php echo $pid; ?>" type="button" class="btn btn-dark">Remove</a>
-
-
-                                        </td>
-                                        <td class="align-middle">
-                                            </br>
-                                            <form action="userview.php" method="post">
-                                                <input type="hidden" value="<?php echo $ru['pid']; ?>" name="pd">
-                                                <button class="btn btn-dark">View</button>
-                                            </form>
-                                        </td>
+                                        <th scope="col">remove</th>
+                                        <th scope="col">view</th>
 
                                     </tr>
-                                <?php
-                                }
-                                ?>
 
-                            </tbody>
-                        </table>
+                                </thead>
+
+
+
+                                <tbody>
+                                    <?php
+                                    $sql = "select * from tbl_cart where username='$email'";
+                                    $run = mysqli_query($conn, $sql);
+                                    while ($ru = mysqli_fetch_assoc($run)) {
+                                        $productname = $ru['pname'];
+                                        $pid = $ru['id'];
+                                        $price = $ru['price'];
+                                        $description = $ru['description'];
+                                        // $description=$ru['description'];
+                                        $image = $ru['image'];
+
+
+                                        //$discount=$ru['discount'];
+                                        // $a=($discount/100)*$price;
+                                        // $actualprice=$price-$a;
+
+                                    ?>
+                                        <div class="container">
+                                            <tr>
+
+                                                <th scope="row">
+
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="user_profile/images/<?php echo $image; ?>" class="img-fluid rounded-3" style="width: 120px;" alt="Book">
+                                                        <div class="flex-column ms-4">
+                                                            <p class="mb-2"><?php echo $productname; ?></p>
+                                                            <p class="mb-0"><?php echo $description; ?></p>
+                                                        </div>
+                                                    </div>
+
+
+                                                </th>
+
+                                                <td class="align-middle">
+                                                    <div class="d-flex flex-row">
+
+
+                                                        <p class="mb-0" style="font-weight: 500;"><?php echo $price; ?></p>
+
+                                                    </div>
+                                                </td>
+
+                                                <td class="align-middle">
+                                                    <a href="deletefrom.php?product=<?php echo $pid; ?>" type="button" class="btn btn-dark">Remove</a>
+
+
+                                                </td>
+                                                <td class="align-middle">
+                                                    </br>
+                                                    <form action="userview.php" method="post">
+                                                        <input type="hidden" value="<?php echo $ru['pid']; ?>" name="pd">
+                                                        <button class="btn btn-dark">View</button>
+                                                    </form>
+                                                </td>
+
+                                            </tr>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
                     </div>
-
-
-
-
                 </div>
-            </div>
-        </div>
+                <div>
+                </div>
     </section>
 
 

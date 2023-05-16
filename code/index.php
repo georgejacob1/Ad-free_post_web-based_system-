@@ -22,6 +22,10 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
     // Get the results...
     $result = $stmt->get_result();
 ?>
+
+
+
+
     <!DOCTYPE html>
     <html lang="en">
 
@@ -29,7 +33,7 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>index</title>
+        <title>Easy Buy</title>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css"   />
 
 
@@ -40,6 +44,13 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
         <script src="https://kit.fontawesome.com/6007aa3653.js" crossorigin="anonymous"></script>
         <!-- custom css file link  -->
         <link rel="stylesheet" href="sty.css">
+
+
+
+
+        <!-- css -->
+
+
         <style>
             :root {
                 --breakpoint-xs: 600px;
@@ -185,6 +196,10 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
                 font-weight: 700;
             }
 
+            .mystyle-products .product .fa-solid {
+                margin-left: 260px;
+            }
+
             .mystyle-products .onsale {
                 z-index: 6;
                 position: absolute;
@@ -271,6 +286,59 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
             .pagination .currentpage a:hover {
                 background-color: #033e3a;
             }
+
+            .searchf {
+                width: 600px;
+                position: relative;
+                display: flex;
+            }
+
+            .searchTermf {
+                width: 900px;
+                border: 3px solid #09746c;
+                border-right: none;
+                padding: 5px;
+                border-radius: 5px 0 0 5px;
+                outline: none;
+                color: #9DBFAF;
+
+            }
+
+            .searchTermf:focus {
+                color: #09746c;
+            }
+
+            .searchButtonf {
+                width: 40px;
+                height: 36px;
+                border: 1px solid #09746c;
+                background: #09746c;
+                text-align: center;
+                color: #fff;
+                border-radius: 0 5px 5px 0;
+                cursor: pointer;
+                font-size: 20px;
+
+            }
+
+            /*Resize the wrap to see the search bar change!*/
+            .header-1 .wrapf {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                overflow: hidden;
+
+            }
+
+            .wrapf {
+                width: 40%;
+                position: absolute;
+                top: 5%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+            }
         </style>
 
     <body>
@@ -284,15 +352,21 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
 
 
                 <a href="#"><img src="image/logo.png" class="logo" alt="" height="60px" width="60px"></a>
-                <form action="" class="search-form">
-                    <input type="search" placeholder="search here..." id="searchhh">
-                    <label for="search-box" class="fas fa-search"></label>
-                </form>
+
+
+                <div class="wrapf">
+                    <div class="searchf">
+                        <input type="text" id="search" name="searchpro" class="searchTermf" placeholder="Search your product">
+                        <button type="submit" name="submit" class="searchButtonf">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                </div>
 
 
 
                 <div class="icons">
-                    <div id="search-btn" class="fas fa-search"></div>
                     <!-- <a href="#" class="fas fa-heart"></a>
                 <a href="#" class="fas fa-shopping-cart"></a> -->
                     <!-- <a style="font-family: poppins;" href="reg.php">Register</a> -->
@@ -318,6 +392,8 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
 
         <!-- header section ends -->
 
+
+
         <!-- bottom navbar  -->
 
         <nav class="bottom-navbar">
@@ -328,108 +404,77 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
             <a href="#blogs" class="fas fa-blog"></a>
         </nav>
 
+        <!-- featured section start -->
 
         <section class="featured" id="featured">
 
-            <div>
-                <ul class="mystyle-products" id="searched">
-                    <?php while ($vrow = $result->fetch_assoc()) : ?>
-                        <li class="product">
-                            <a href="proview.php?pd=<?php echo $vrow['product_id'] ?>" name="pd">
-                                <?php
-                                $subcat_id = $vrow['subcat_id'];
-                                $sql = "SELECT tbl_categories.category FROM tbl_categories INNER JOIN tbl_subcat ON tbl_subcat.cat_id=tbl_categories.cat_id INNER JOIN tbl_product ON tbl_product.subcat_id=tbl_subcat.sub_id WHERE tbl_product.subcat_id='$subcat_id'";
-                                $res = mysqli_query($conn, $sql);
-                                $sales = mysqli_fetch_array($res);
-                                $sales_name = $sales['category'];
-                                ?>
-                                <span class="onsale"><?php echo $sales_name; ?></span>
-                                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:290px;height:230px" />
-                                <h3><?php echo $vrow['p_name']; ?></h3>
-                                <span class="price">
-                                    <!-- <del> <span class="amount">399.000 ₫</span> </del> -->
-                                    <ins> <span class="amount">Rs.<?php echo $vrow['price']; ?></span> </ins>
-                                    <!-- <span class="sale-tag sale-tag-square">-33%</span> -->
-                                </span>
-                            </a>
+            <!-- product display start-->
 
-                            <a href="login.php" style="margin-left: 260px"><i class="fa-solid fa-heart fa-beat fa-2xl"></i>
-                            </a>
+            <ul class="mystyle-products" id="searched">
+                <?php while ($vrow = $result->fetch_assoc()) : ?>
+                    <li class="product">
+                        <a href="proview.php?pd=<?php echo $vrow['product_id'] ?>" name="pd">
+                            <?php
+                            $subcat_id = $vrow['subcat_id'];
+                            $sql = "SELECT tbl_categories.category FROM tbl_categories INNER JOIN tbl_subcat ON tbl_subcat.cat_id=tbl_categories.cat_id INNER JOIN tbl_product ON tbl_product.subcat_id=tbl_subcat.sub_id WHERE tbl_product.subcat_id='$subcat_id'";
+                            $res = mysqli_query($conn, $sql);
+                            $sales = mysqli_fetch_array($res);
+                            $sales_name = $sales['category'];
+                            ?>
+                            <span class="onsale"><?php echo $sales_name; ?></span>
+                            <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:290px;height:230px" />
+                            <h3><?php echo $vrow['p_name']; ?></h3>
+                            <span class="price">
+                                <ins> <span class="amount">Rs.<?php echo $vrow['price']; ?></span> </ins>
+                            </span>
+                        </a>
 
-                            <!-- <a href="tttt" class="btnn btnn-dark btnn-circle btnn-review" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="fa-solid fa-heart fa-beat fa-2xl"></i></a> -->
-                        </li>
-                    <?php endwhile; ?>
-                </ul>
-                <?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
-                    <center>
-                        <ul class="pagination">
-                            <?php if ($page > 1) : ?>
-                                <li class="prev"><a href="index.php?page=<?php echo $page - 1 ?>">Prev</a></li>
-                            <?php endif; ?>
+                        <a href="login.php"><i class="fa-solid fa-heart fa-beat fa-2xl"></i>
+                        </a>
 
-                            <?php if ($page > 3) : ?>
-                                <li class="start"><a href="index.php?page=1">1</a></li>
-                                <li class="dots">...</li>
-                            <?php endif; ?>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+            <!-- product display end -->
 
-                            <?php if ($page - 2 > 0) : ?><li class="page"><a href="index.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a></li><?php endif; ?>
-                            <?php if ($page - 1 > 0) : ?><li class="page"><a href="index.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a></li><?php endif; ?>
+            <!-- pages start  -->
 
-                            <li class="currentpage"><a href="index.php?page=<?php echo $page ?>"><?php echo $page ?></a></li>
+            <?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
+                <center>
+                    <ul class="pagination">
+                        <?php if ($page > 1) : ?>
+                            <li class="prev"><a href="index.php?page=<?php echo $page - 1 ?>">Prev</a></li>
+                        <?php endif; ?>
 
-                            <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="index.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a></li><?php endif; ?>
-                            <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="index.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a></li><?php endif; ?>
+                        <?php if ($page > 3) : ?>
+                            <li class="start"><a href="index.php?page=1">1</a></li>
+                            <li class="dots">...</li>
+                        <?php endif; ?>
 
-                            <?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
-                                <li class="dots">...</li>
-                                <li class="end"><a href="index.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a></li>
-                            <?php endif; ?>
+                        <?php if ($page - 2 > 0) : ?><li class="page"><a href="index.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a></li><?php endif; ?>
+                        <?php if ($page - 1 > 0) : ?><li class="page"><a href="index.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a></li><?php endif; ?>
 
-                            <?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
-                                <li class="next"><a href="index.php?page=<?php echo $page + 1 ?>">Next</a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </center>
-                <?php endif; ?>
-            </div>
-            <!-- <div class="swiper featured-slider">
-                <div class="swiper-wrapper">
+                        <li class="currentpage"><a href="index.php?page=<?php echo $page ?>"><?php echo $page ?></a></li>
 
-                    <?php
-                    $v = "SELECT * FROM tbl_product where delete_status='1'";
-                    $v_check = mysqli_query($conn, $v);
-                    while ($vrow = mysqli_fetch_array($v_check)) {
-                    ?>
+                        <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="index.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a></li><?php endif; ?>
+                        <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="index.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a></li><?php endif; ?>
 
-                        <div class="swiper-slide box">
-                            <div class="icons">
+                        <?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
+                            <li class="dots">...</li>
+                            <li class="end"><a href="index.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a></li>
+                        <?php endif; ?>
 
-                                <form action="proview.php" method="post">
-                                    <input type="hidden" value="<?php echo $vrow['product_id'] ?>" name="pd">
-                                    <button class="fas fa-eye" style="width: 300px;height:50px;font-size:30px"></button>
-                                </form>
-                            </div>
+                        <?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
+                            <li class="next"><a href="index.php?page=<?php echo $page + 1 ?>">Next</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </center>
+            <?php endif; ?>
 
-                            <div class="image">
-                                <img src="user_profile/images/<?php echo $vrow['p_image']; ?>" alt="" style="width:250px;height:230px" />
-                            </div>
-                            <div class="content">
-                                <h3><?php echo $vrow['p_name']; ?></h3>
-                                <div class="price">Rs.<?php echo $vrow['price']; ?></div>
-                                <a href="login.php" class="btn">add to wishlist</a>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
+            <!-- pages end  -->
 
 
 
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-
-            </div> -->
 
 
         </section>
@@ -716,8 +761,8 @@ if ($stmt = $conn->prepare("SELECT * FROM tbl_product where delete_status='1' OR
 
         <script>
             $(document).ready(function() {
-                $("#searchhh").keyup(function() {
-                    var search = $("#searchhh").val();
+                $("#search").keyup(function() {
+                    var search = $("#search").val();
                     console.log(search);
                     // alert(search);
                     $.ajax({

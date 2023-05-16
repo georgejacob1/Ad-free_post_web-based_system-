@@ -34,7 +34,7 @@ include '../db_con.php';
             <li>
                 <a href="category.php">
                     <i class='bx bx-box'></i>
-                    <span class="links_name">category</span>
+                    <span class="links_name">Categories</span>
                 </a>
             </li>
             <li>

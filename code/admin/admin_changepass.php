@@ -19,71 +19,22 @@ if (isset($_POST['change-pass'])) {
   }
 }
 ?>
-
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
 
 <head>
-  <style>
-    :root {
-      --black: #444;
-      --light-color: #666;
-      --border: 0.1rem solid rgba(0, 0, 0, 0.1);
-      --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    }
-
-    .login-form-container form h3 {
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      color: var(--black);
-      text-align: center;
-    }
-
-    .login-form-container form span {
-      display: block;
-      font-size: 1.5rem;
-      padding-top: 1rem;
-    }
-
-    .login-form-container form .box {
-      width: 100%;
-      margin: 0.7rem 0;
-      font-size: 1.6rem;
-      border: var(--border);
-      border-radius: 0.5rem;
-      padding: 1rem 1.2rem;
-      color: var(--black);
-      text-transform: none;
-    }
-
-    .login-form-container form .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 0;
-    }
-
-    .login-form-container form .checkbox label {
-      font-size: 1.5rem;
-      color: var(--light-color);
-      cursor: pointer;
-    }
-
-    .login-form-container form .btn {
-      text-align: center;
-      width: 100%;
-      margin: 1.5rem 0;
-    }
-  </style>
   <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+  <title>Change Pasword</title>
   <link rel="stylesheet" href="style.css">
   <!-- Boxicons CDN Link -->
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -91,7 +42,7 @@ if (isset($_POST['change-pass'])) {
     <div class="logo-details">
       <img src="images/logo.png" class="logo" alt="" height="60px" width="60px"></a>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links start-0 m-0 p-0">
       <li>
         <a href="index.php">
           <i class='bx bx-grid-alt'></i>
@@ -99,9 +50,9 @@ if (isset($_POST['change-pass'])) {
         </a>
       </li>
       <li>
-        <a href="category.php">
+        <a href="#">
           <i class='bx bx-box'></i>
-          <span class="links_name">category</span>
+          <span class="links_name">Categories</span>
         </a>
       </li>
       <li>
@@ -110,8 +61,26 @@ if (isset($_POST['change-pass'])) {
           <span class="links_name">Sub-Categories</span>
         </a>
       </li>
-      <!-- <li>
-          <a href="#">
+      <li>
+        <a href="pro.php">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="links_name">Products</span>
+        </a>
+      </li>
+      <li>
+        <a href="payreport.php">
+          <i class='bx bx-coin-stack'></i>
+          <span class="links_name">Payment Report</span>
+        </a>
+      </li>
+      <li>
+        <a href="admin_changepass.php" class="active">
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Change Password</span>
+        </a>
+      </li>
+      <!-- <li> -->
+      <!-- <a href="#">
             <i class='bx bx-list-ul' ></i>
             <span class="links_name">Order list</span>
           </a>
@@ -152,12 +121,7 @@ if (isset($_POST['change-pass'])) {
             <span class="links_name">Favrorites</span>
           </a>
         </li> -->
-      <li>
-        <a href="admin_changepass.php" class="active">
-          <i class='bx bx-cog'></i>
-          <span class="links_name">Change Password</span>
-        </a>
-      </li>
+
       <li class="log_out">
         <a href="../logout.php">
           <i class='bx bx-log-out'></i>
@@ -170,11 +134,11 @@ if (isset($_POST['change-pass'])) {
     <nav>
       <div class="sidebar-button">
         <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Change Password</span>
+        <span class="dashboard">Change Pasword</span>
       </div>
       <!-- <div class="search-box">
         <input type="text" placeholder="Search...">
-        <i class='bx bx-search'></i>
+        <i class='bx bx-search' ></i>
       </div> -->
       <div class="profile-details">
         <!-- <img src="images/profile.jpg" alt=""> -->
@@ -185,62 +149,44 @@ if (isset($_POST['change-pass'])) {
     </nav>
 
     <div class="home-content">
-      <!-- <div class="form-floating mb-3">
 
-<form action="" method="POST" onsubmit="return validateForm()">
-<div class="form-floating">
-  <input type="password" name="current" class="form-control" id="currentPassword" placeholder="Password"required>
-  <label for="floatingPassword">currentPassword</label>
-</div>
-<br>
-<div class="form-floating">
-  <input type="password" name="current" class="form-control"name="new" id="newPassword"  placeholder="Password" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
-  <label for="floatingPassword">New Password</label>
-</div>
-<br>
-<div class="form-floating">
-  <input type="password" name="current" class="form-control" name="renewPassword" id="renewPassword" placeholder="Password" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
-  <label for="floatingPassword">Re-enter New Password</label>
-</div>
-  <span class="msg" id="msg1"></span>
-  <input type="submit" name="change-pass" class="btn" value="Change Password">
-  </form>
-</div> -->
-      <div class="sales-boxes">
-        <div class="recent-sales box">
-          <div class="login-form-container">
-            <form action="" method="POST" onsubmit="return validateForm()">
 
-              <div class="row mb-3">
-                <span>Current Password</span>
-                <div class="col-md-8 col-lg-9">
-                  <input type="password" class="box" name="current" id="currentPassword" placeholder="*********" required>
-                </div>
-              </div>
 
-              <div class="row mb-3">
-                <span>New Password</span>
-                <div class="col-md-8 col-lg-9">
-                  <input type="password" class="box" name="new" id="newPassword" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
-                </div>
-              </div>
+      <div class="card  m-3 p-3" style="width:500px; height:500px">
 
-              <div class="row mb-3">
-                <span>Re-enter New Password</span>
-                <div class="col-md-8 col-lg-9">
-                  <input type="password" class="box" name="renewPassword" id="renewPassword" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
-                  <span class="msg" id="msg1"></span>
-                  <br><input type="submit" name="change-pass" class="btn" value="Change Password">
-                </div>
-              </div>
-            </form>
-          </div>
+        <div class="card-header">
+          <h4>Change Pasword</h4>
         </div>
+        <br><br>
+        <form action="" method="POST" onsubmit="return validateForm()">
+          <div class="form-group">
+            <label for="name">old password</label>
+            <input type="password" class="form-control" name="current" id="currentPassword" placeholder="*********" required>
+          </div>
+          <div class="form-group">
+            <br><label for="des">new password</label>
+            <input type="password" class="form-control" name="new" id="newPassword" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
+          </div>
+          <div class="form-group">
+            <br><label for="des">confirm password</label>
+            <input type="password" class="form-control" name="renewPassword" id="renewPassword" onblur="return validateForm()" onKeyUp="return validateForm()" placeholder="*********" required>
+            <!-- <span class="msg" id="msg1"></span> -->
+          </div>
+          <span id="msg1" style="color:red;"></span>
+          <input type="submit" name="change-pass" class="btn btn-info" value="Change Password">
+
+        </form>
+
+
+
+
       </div>
-    </div>
+
+
 
 
   </section>
+
 
   <script>
     let sidebar = document.querySelector(".sidebar");
@@ -265,7 +211,29 @@ if (isset($_POST['change-pass'])) {
       }
     }
   </script>
+  <!-- <script>
+    $(document).ready(function() {
+      $('#cid').on('change', function() {
+        var cid = this.value;
+        $.ajax({
+          url: "get_subcat.php",
+          type: "POST",
+          data: {
+            cid: cid
+          },
+          cache: false,
+          success: function(dataResult) {
+            $("#sid").html(dataResult);
+          }
+        });
 
+
+      });
+    });
+  </script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -574,6 +574,129 @@ if (isset($_POST['ressubmit'])) {
             border-radius: 5px 0 0 5px;
             background: #800;
         }
+
+        .searchf {
+            width: 600px;
+            position: relative;
+            display: flex;
+        }
+
+        .searchTermf {
+            width: 900px;
+            border: 3px solid #09746c;
+            border-right: none;
+            padding: 5px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+        .searchTermf:focus {
+            color: #09746c;
+        }
+
+
+        .lsearchf {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
+
+        .lsearchTermf {
+            width: 100%;
+            border: 3px solid #09746c;
+            padding: 5px;
+            border-radius: 5px 5px 5px 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+        .lsearchTermf:focus {
+            color: #09746c;
+        }
+
+
+        .searchButtonf {
+            width: 40px;
+            height: 36px;
+            border: 1px solid #09746c;
+            background: #09746c;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /*Resize the wrap to see the search bar change!*/
+        .wrapf {
+            width: 40%;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+
+
+        /* Styling for the search results lists */
+        ul.results {
+            list-style-type: none;
+            margin: 0;
+            margin-top: -40px;
+            margin-left: 240px;
+            padding: 0;
+            width: 360px;
+            position: absolute;
+            background-color: #fff;
+            border: 0px solid #ddd;
+            max-height: 100px;
+            overflow-y: auto;
+            z-index: 1;
+            color: #000;
+        }
+
+        ul.lresults {
+            list-style: none;
+            margin: 0;
+            padding: 0px;
+            position: absolute;
+            z-index: 999;
+            width: 230px;
+            max-height: 100px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border: 0px solid #ccc;
+            color: #000;
+        }
+
+        ul.lresults li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        ul.results li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        ul.lresults li:hover,
+        ul.results li:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        /* Positioning the search results lists */
+        ul.lresults {
+            top: 40px;
+        }
+
+        ul.results {
+            top: 80px;
+        }
     </style>
 </head>
 
@@ -583,10 +706,23 @@ if (isset($_POST['ressubmit'])) {
     <header class="header">
         <div class="header-1">
             <a href="user.php"><img src="image/logo.png" class="logo" alt="" height="60px" width="60px" /></a>
-            <form action="" class="search-form">
-                <input type="search" name="" placeholder="search here..." id="search-box" />
-                <label for="search-box" class="fas fa-search"></label>
+            <form action="searchfilter.php" method="POST" class="search-fo">
+                <div class="wrapf">
+                    <div class="searchf">
+                        <input type="text" id="lsearch" name="lsearchpro" class="lsearchTermf" placeholder="Enter the location">
+                        &nbsp;&nbsp;
+                        <input type="text" id="search" name="searchpro" class="searchTermf" placeholder="Search your product">
+                        <button type="submit" name="submit" class="searchButtonf">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    </div>
+                    <ul id="lresults" class="lresults"></ul>
+                    <ul id="results" class="results"></ul>
+                </div>
+
             </form>
+
 
             <div class=".btn-group">
                 <div class="icons ph">
@@ -1300,6 +1436,67 @@ if (isset($_POST['ressubmit'])) {
         //     });
 
         // });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Attach an event listener to the search field
+            $("#search").keyup(function() {
+                // Get the search term from the user input
+                var searchTerm = $(this).val();
+
+                // Send an AJAX request to the PHP script to retrieve autocomplete suggestions
+                $.getJSON("autocomplete.php", {
+                    term: searchTerm
+
+                }, function(data) {
+                    console.log(data);
+                    // Update the search results with the suggestions returned by the PHP script
+                    $("#results").empty();
+                    $.each(data, function(key, value) {
+                        $("#results").append("<li>" + value + "</li>");
+                    });
+
+                    // Attach an event listener to each result in the list
+                    $("#results li").click(function() {
+                        // Update the search field with the selected result
+                        $("#search").val($(this).text());
+
+                        // Clear the results list
+                        $("#results").empty();
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Attach an event listener to the search field
+            $("#lsearch").keyup(function() {
+                // Get the search term from the user input
+                var lsearchTerm = $(this).val();
+
+                // Send an AJAX request to the PHP script to retrieve autocomplete suggestions
+                $.getJSON("autocomplete.php", {
+                    lterm: lsearchTerm
+                }, function(data) {
+                    console.log(data);
+                    // Update the search results with the suggestions returned by the PHP script
+                    $("#lresults").empty();
+                    $.each(data, function(key, value) {
+                        $("#lresults").append("<li>" + value + "</li>");
+                    });
+
+                    // Attach an event listener to each result in the list
+                    $("#lresults li").click(function() {
+                        // Update the search field with the selected result
+                        $("#lsearch").val($(this).text());
+
+                        // Clear the results list
+                        $("#lresults").empty();
+                    });
+                });
+            });
+        });
     </script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
