@@ -5,11 +5,14 @@ include 'session.php';
 $range1 = $_POST['x'];
 $range2 = $_POST['y'];
 $term = $_POST['term'];
+$lterm = $_POST['lterm'];
 // echo $search;
 ?>
 
 <?php
-$sql = " SELECT * FROM (((`tbl_product` INNER JOIN tbl_subcat ON tbl_product.subcat_id=tbl_subcat.sub_id) INNER JOIN tbl_categories ON tbl_categories.cat_id=tbl_subcat.cat_id)INNER join tbl_users ON tbl_users.login_id=tbl_product.login_id) where p_name LIKE '%$term%' OR subcat LIKE '%$term%' OR category LIKE '%$term%' AND tbl_product.delete_status='1' AND tbl_product.price between $range1 and $range2 AND tbl_product.delete_status='1' ORDER BY tbl_product.p_name";
+$sql = "SELECT * FROM tbl_address INNER JOIN tbl_product ON tbl_address.login_id=tbl_product.login_id INNER JOIN tbl_subcat ON tbl_product.subcat_id=tbl_subcat.sub_id INNER JOIN tbl_categories ON tbl_categories.cat_id=tbl_subcat.cat_id INNER JOIN tbl_users on tbl_product.login_id=tbl_users.login_id WHERE (tbl_address.street LIKE '%$lterm%' OR tbl_address.city LIKE '%$lterm%' OR tbl_address.state LIKE '%$lterm%') AND (tbl_product.p_name LIKE '%$term%' OR tbl_categories.category LIKE '%$term%' OR tbl_subcat.subcat LIKE '%$term%') AND tbl_product.delete_status='1'AND tbl_product.price between $range1 and $range2 AND tbl_product.delete_status='1' ORDER BY tbl_product.p_name";
+
+
 $result = $conn->query($sql);
 $rc = mysqli_num_rows($result);
 if ($rc != 0) {

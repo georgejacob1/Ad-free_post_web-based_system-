@@ -10,7 +10,7 @@ if(isset($_POST['submit_login'])){
 	$rsltcheck = mysqli_num_rows($login_check_result);
     $row = mysqli_fetch_array($login_check_result);
     if($rsltcheck == 1){
-        if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user" && $row['user_status'] == "active"){
+        if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user" ){
             $_SESSION['email'] = $row['email'];
             $_SESSION['password'] = $row['password'];
             $_SESSION['type_name'] = $row['type_name'];
@@ -23,7 +23,7 @@ if(isset($_POST['submit_login'])){
             $_SESSION['type_name'] = $row['type_name'];
             header("location: admin/index.php");
         }
-        else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user" && $row['user_status'] == "deactive"){
+        else if($row['email'] == $user && $row['password'] == $password && $row['type_name'] == "user"){
             echo "<script> alert ('Your account has been blocked.');</script>";
 	        echo '<script>window.location.href="login.php";</script>';
         }

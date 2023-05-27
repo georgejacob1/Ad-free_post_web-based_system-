@@ -424,7 +424,7 @@ if ($stmt = $conn->prepare("SELECT a.*,b.* FROM tbl_product a inner join tbl_use
             .card {
                 width: 300px;
                 max-width: 300px;
-                min-height: 400px;
+                min-height: 430px;
                 position: relative;
                 text-align: center;
                 margin: 32px;
@@ -741,9 +741,21 @@ if ($stmt = $conn->prepare("SELECT a.*,b.* FROM tbl_product a inner join tbl_use
                         <?php  } else { ?>
                             <img class="pic" src="user_profile/images/<?php echo $profile['profileimg'] ?>" alt="Profile Picture" />
                         <?php } ?>
+                        <?php
+                        $users = "SELECT * FROM tbl_users  WHERE login_id='$pro_id'";
+                        $users_run = mysqli_query($conn, $users);
+                        $data = mysqli_fetch_array($users_run)
+                        ?>
+
 
                     </div>
                     <div class="name">
+                        <?php
+                        if ($data['user_status'] == "verified") {
+                        ?><img style="height: 40px;width: 70px;"src="https://www.nicepng.com/png/detail/435-4351856_many-green-verified-icon-png.png" alt="Many - Green Verified Icon Png@nicepng.com">
+                        <?php
+                        } 
+                        ?><br>
                         <span><?php echo $user_fech['user_fname'] . " " . $user_fech['user_lname'] ?></span>
                     </div>
                     <div class="title">

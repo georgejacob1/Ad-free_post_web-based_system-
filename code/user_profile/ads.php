@@ -203,7 +203,7 @@ $logid = $_SESSION['login_id'];
                           <td>
                             <button type="button" value="<?php echo $prod['product_id']; ?>" class="editShowBtn fa fa-edit" data-bs-toggle="modal" style="color: #0056b3;" data-bs-target="#update"></button> &nbsp;
                             <button type="button" value="<?php echo $prod['product_id']; ?>" class="deleteShowBtn fa fa-trash" style="color: #0056b3;"></button>&nbsp;
-                            <form action="../userview.php" method="post">
+                            <form action="../userview.php" method="GET">
                               <input type="hidden" value="<?php echo $prod['product_id']; ?>" name="pd">
                               <button type="submit" class="viewShowBtn fa fa-eye" style="color: #0056b3;"></button>
                             </form>

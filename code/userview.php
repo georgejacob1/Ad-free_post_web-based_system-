@@ -228,7 +228,7 @@ if (isset($_POST['ressubmit'])) {
         .profile-card {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: 210px 1fr;
+            grid-template-rows: 240px 1fr;
             grid-template-areas:
 
                 "pc-user pc-user pc-user pc-user-buttons";
@@ -921,8 +921,19 @@ if (isset($_POST['ressubmit'])) {
                                     <img src="user_profile/images/<?php echo $urow['profileimg'] ?>" alt="" />
                                 <?php } ?>
                             </div>
+                            <?php
+                            $pro_id = $urow['login_id'];
+                            $users = "SELECT * FROM tbl_users  WHERE login_id='$pro_id'";
+                            $users_run = mysqli_query($conn, $users);
+                            $data = mysqli_fetch_array($users_run)
+                            ?>
                             <div class="pc-user-info">
-                                <h3><?php echo $mrow['user_fname']; ?> <?php echo $mrow['user_lname']; ?></h3>
+                                <h3><?php echo $mrow['user_fname']; ?> <?php echo $mrow['user_lname']; ?></h3> <?php
+                                                                                                                if ($data['user_status'] == "verified") {
+                                                                                                                ?><img style="height: 40px;width: 70px;" src="https://www.nicepng.com/png/detail/435-4351856_many-green-verified-icon-png.png" alt="Many - Green Verified Icon Png@nicepng.com">
+                                <?php
+                                                                                                                }
+                                ?>
                                 <div class="pc-user-title">
                                     <p><b>Address</b></p>
                                 </div>
@@ -1044,7 +1055,7 @@ if (isset($_POST['ressubmit'])) {
                 <div class="swiper-slide box">
                     <div class="mystyle-products">
                         <li class="product1">
-                            <a href="index.php">
+                            <a href="user.php">
 
 
                                 <img src="image/pluz.png" alt="" style="width:290px;height:340px" />

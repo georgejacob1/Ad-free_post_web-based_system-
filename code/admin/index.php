@@ -49,11 +49,11 @@ include '../db_con.php';
         </a>
       </li>
       <li>
-          <a href="payreport.php">
-            <i class='bx bx-coin-stack'></i>
-            <span class="links_name">Payment Report</span>
-          </a>
-        </li>
+        <a href="payreport.php">
+          <i class='bx bx-coin-stack'></i>
+          <span class="links_name">Payment Report</span>
+        </a>
+      </li>
       <!-- <li>
           <a href="#">
             <i class='bx bx-list-ul' ></i>
@@ -164,16 +164,20 @@ include '../db_con.php';
         </div>
         <div class="box">
           <div class="right-side">
+            <?php $sql = "SELECT SUM(amount)AS total FROM `tbl_payment`";
+            $res = mysqli_query($conn, $sql);
+            $row1 = mysqli_fetch_assoc($res);
+            ?>
             <div class="box-topic">Total Profit</div>
-            <div class="number">$12,876</div>
+            <div class="number">RS.<?php echo $row1['total']; ?></div>
             <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
-              <span class="text">Up from yesterday</span>
+              <span class="text">Up from Today</span>
             </div>
           </div>
           <i class='bx bx-cart cart three'></i>
         </div>
-        <div class="box">
+        <!-- <div class="box">
           <div class="right-side">
             <div class="box-topic">Total Return</div>
             <div class="number">11,086</div>
@@ -183,7 +187,7 @@ include '../db_con.php';
             </div>
           </div>
           <i class='bx bxs-cart-download cart four'></i>
-        </div>
+        </div> -->
       </div>
 
       <div class="card w-auto m-5 p-5">
@@ -220,11 +224,11 @@ include '../db_con.php';
                     <td data-label="Status"><?php echo $data['user_status']; ?></td>
                     <td data-label="Action">
                       <?php
-                      if ($data['user_status'] == "active") {
-                      ?><a class="btn btn-outline-danger" href="deactivate.php?deactid=<?php echo $data["user_id"]; ?>">Deactivate</a>
+                      if ($data['user_status'] == "un-verified") {
+                      ?><a class="btn btn-outline-danger" href="deactivate.php?deactid=<?php echo $data["user_id"]; ?>">verify</a>
                       <?php
                       } else { ?>
-                        <a class="btn btn-outline-success" href="activate.php?actid=<?php echo $data["user_id"]; ?>">Activate</a>
+                        <a class="btn btn-outline-success" href="activate.php?actid=<?php echo $data["user_id"]; ?>">verified</a>
                       <?php
                       }
                       ?>

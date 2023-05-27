@@ -1375,6 +1375,7 @@ $stmt = mysqli_query($conn, $sql2);
             // alert(x);
             // alert(y);
             var searchterm = '<?php echo $search; ?>';
+            var lsearchterm ='<?php echo $lsearch; ?>'
             $.ajax({
                 url: "filter.php",
                 type: "post",
@@ -1382,7 +1383,8 @@ $stmt = mysqli_query($conn, $sql2);
                     filter: true,
                     x: x,
                     y: y,
-                    term: searchterm
+                    term: searchterm,
+                    lterm: lsearchterm
                 },
 
                 success: function(response) {
